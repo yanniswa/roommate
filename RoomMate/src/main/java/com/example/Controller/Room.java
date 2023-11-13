@@ -4,30 +4,27 @@ import java.util.List;
 
 public class Room {
     private int roomnumber;
-    private int anzahlArbeitsplaetze;
     private List<Arbeitsplatz> arbeitsplaetze;
 
-    public int getAnzahlArbeitsplaetze() {
-        return anzahlArbeitsplaetze;
+    public Room(int roomnumber, int anzahlArbeitsplaetze, List<Arbeitsplatz> arbeitsplaetze) {
+        this.roomnumber = roomnumber;
+        this.arbeitsplaetze = arbeitsplaetze;
     }
 
-    public void setAnzahlArbeitsplaetze(int anzahlArbeitsplaetze) {
-        this.anzahlArbeitsplaetze = anzahlArbeitsplaetze;
-    }
 
     public List<Arbeitsplatz> getArbeitsplaetze() {
         return arbeitsplaetze;
     }
 
-    public void setArbeitsplaetze(List<Arbeitsplatz> arbeitsplaetze) {
-        this.arbeitsplaetze = arbeitsplaetze;
+    public void addArbeitsplaetze(List<Arbeitsplatz> arbeitsplaetze) {
+        this.arbeitsplaetze.addAll(arbeitsplaetze);
+    }
+    public void addArbeitsplatz(Arbeitsplatz arbeitsplatz){
+        arbeitsplaetze.add(arbeitsplatz);
     }
 
     public int getRoomnumber() {
         return roomnumber;
     }
 
-    public void setRoomnumber(int roomnumber) {
-        this.roomnumber = roomnumber;
-    }
 }

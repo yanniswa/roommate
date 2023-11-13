@@ -20,7 +20,7 @@ public class Arbeitsplatz {
         return ausstattung;
     }
 
-    public void setAusstattung(List<String> ausstattung) {
+    public void addAusstattung(List<String> ausstattung) {
         this.ausstattung = ausstattung;
     }
 }
