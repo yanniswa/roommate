@@ -18,7 +18,7 @@ public class Room {
     }
 
     public List<Arbeitsplatz> getArbeitsplaetze() {
-        return arbeitsplaetze;
+        return new ArrayList<>(arbeitsplaetze);
     }
 
     public void addArbeitsplaetze(List<Arbeitsplatz> arbeitsplaetze) {
