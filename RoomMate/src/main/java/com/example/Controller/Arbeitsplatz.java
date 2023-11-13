@@ -1,5 +1,6 @@
 package com.example.Controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Arbeitsplatz {
@@ -17,7 +18,7 @@ public class Arbeitsplatz {
     }
 
     public List<String> getAusstattung() {
-        return ausstattung;
+        return new ArrayList<>(ausstattung);
     }
 
     public void addAusstattung(List<String> ausstattung) {
