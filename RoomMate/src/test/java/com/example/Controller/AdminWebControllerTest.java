@@ -1,4 +1,4 @@
-package com.example.roommate;
+package com.example.Controller;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -6,19 +6,24 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.test.web.servlet.MockMvc;
 
+import static org.hamcrest.CoreMatchers.not;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
-@WebMvcTest
-public class UserControllerTests {
+
+@WebMvcTest(AdminWebController.class)
+public class AdminWebControllerTest {
 
     @Autowired
-    MockMvc mvc;
+    MockMvc mockMvc;
 
     @Test
-    @DisplayName("Die Route /platzsuche ist vorhanden")
-    void test_01() throws Exception{
-        mvc.perform(get("/platzsuche"))
+    @DisplayName("Get Request auf /admin funktioniert")
+    void test_1() throws Exception {
+        mockMvc.perform(get("/admin"))
                 .andExpect(status().isOk());
     }
+
 }
