@@ -31,5 +31,7 @@ public class Room {
     public int getRoomnumber() {
         return roomnumber;
     }
-
+    public int anzahlArbeitsplaetze(){
+        return arbeitsplaetze.size();
+    }
 }
