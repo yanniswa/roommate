@@ -7,7 +7,7 @@ public class Room {
     private int roomnumber;
     private List<Arbeitsplatz> arbeitsplaetze;
 
-    public Room(int roomnumber, int anzahlArbeitsplaetze, List<Arbeitsplatz> arbeitsplaetze) {
+    public Room(int roomnumber,List<Arbeitsplatz> arbeitsplaetze) {
         this.roomnumber = roomnumber;
         this.arbeitsplaetze = arbeitsplaetze;
     }
