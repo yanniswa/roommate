@@ -1,5 +1,6 @@
 package com.example.Controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Room {
@@ -11,6 +12,10 @@ public class Room {
         this.arbeitsplaetze = arbeitsplaetze;
     }
 
+    public Room(int roomnumber) {
+        this.arbeitsplaetze = new ArrayList<>();
+        this.roomnumber = roomnumber;
+    }
 
     public List<Arbeitsplatz> getArbeitsplaetze() {
         return arbeitsplaetze;
