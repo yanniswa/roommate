@@ -9,6 +9,11 @@ public class Arbeitsplatz {
 
     private List<String> ausstattung;
 
+    public Arbeitsplatz(List<String> ausstattung) {
+        this.ausstattung = ausstattung;
+        verfuegbar = true;
+    }
+
     public boolean isVerfuegbar() {
         return verfuegbar;
     }

@@ -17,11 +17,21 @@
     </form>
     <br>
 
-    <h2>Verfügbare Plätze</h2>
-    <ul>
-        <li>Platz 1</li>
-        <li>Platz 2</li>
-    </ul>
+    <table border="1">
+        <thead>
+        <tr>
+            <th>Raum</th>
+            <th>Verfügbare Plätze</th>
+        </tr>
+        </thead>
+        <tbody>
+        <!-- Loop durch die Raumobjekte im Modell -->
+        <tr th:each="raum : ${raumList}">
+            <td th:text="${raum.getRoomnumber}"></td>
+            <td th:text="${raum.anzahlArbeitsplaetze()}"></td>
+        </tr>
+        </tbody>
+    </table>
 
 </body>
 </html>

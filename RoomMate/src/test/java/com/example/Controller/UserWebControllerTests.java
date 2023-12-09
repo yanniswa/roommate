@@ -1,5 +1,6 @@
 package com.example.Controller;
 
+import com.example.Controller.Helper.WithMockOAuth2User;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,9 +17,10 @@ public class UserWebControllerTests {
     MockMvc mvc;
 
     @Test
-    @DisplayName("Get Request auf /user funktioniert")
+    @DisplayName("Get Request auf / funktioniert")
+    @WithMockOAuth2User()
     void test_01() throws Exception{
-        mvc.perform(get("/user"))
+        mvc.perform(get("/"))
                 .andExpect(status().isOk());
     }
 }
