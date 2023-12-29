@@ -22,6 +22,7 @@
         <tr>
             <th>Raum</th>
             <th>Verfügbare Plätze</th>
+            <th>Plätze buchen</th>
         </tr>
         </thead>
         <tbody>
@@ -29,6 +30,10 @@
         <tr th:each="raum : ${raumList}">
             <td th:text="${raum.getRoomnumber}"></td>
             <td th:text="${raum.anzahlArbeitsplaetze()}"></td>
+            <td>
+                <button type="submit">
+                    <a th:href="@{/user/{raumNummer}(raumNummer=${raum.getRoomnumber()})}">Raumübersicht</a>
+                </button></td>
         </tr>
         </tbody>
     </table>
