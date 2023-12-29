@@ -5,13 +5,19 @@ import java.util.List;
 
 public class Arbeitsplatz {
 
+    private int Id;
     private boolean verfuegbar;
 
     private List<String> ausstattung;
 
-    public Arbeitsplatz(List<String> ausstattung) {
+    public Arbeitsplatz(List<String> ausstattung,int Id) {
+        this.Id =Id;
         this.ausstattung = ausstattung;
         verfuegbar = true;
+    }
+
+    public int getId() {
+        return Id;
     }
 
     public boolean isVerfuegbar() {

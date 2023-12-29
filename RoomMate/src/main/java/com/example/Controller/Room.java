@@ -34,4 +34,6 @@ public class Room {
     public int anzahlArbeitsplaetze(){
         return arbeitsplaetze.size();
     }
+
+
 }

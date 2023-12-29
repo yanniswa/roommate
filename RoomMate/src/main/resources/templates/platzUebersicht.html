@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Platzübersicht</title>
+</head>
+<body>
+    <h1 >Raumübersicht Raum
+        <span th:text="${raum.getRoomnumber}"></span></h1>
+    <table>
+        <thead>
+        <tr>
+            <th>ArbeitsplatzID</th>
+            <th>Ausstattung</th>
+            <th>Platz buchen</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        <tr th:each="arbeitsplatz : ${arbeitsplaetze}">
+            <td th:text="${arbeitsplatz.getId()}"></td>
+            <td>
+               <ul>
+                   <li th:each="ausstattung : ${arbeitsplatz.getAusstattung()}" th:text="${ausstattung}"></li>
+               </ul>
+            </td>
+            <td>
+                <button type="submit">
+                    <a href="/user">buchen</a>
+                </button></td>
+        </tr>
+        </tbody>
+    </table>
+</body>
+</html>
