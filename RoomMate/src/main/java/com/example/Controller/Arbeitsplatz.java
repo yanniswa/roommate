@@ -6,26 +6,18 @@ import java.util.List;
 public class Arbeitsplatz {
 
     private int Id;
-    private boolean verfuegbar;
+    private List<Buchung> buchungen;
 
     private List<String> ausstattung;
 
     public Arbeitsplatz(List<String> ausstattung,int Id) {
         this.Id =Id;
         this.ausstattung = ausstattung;
-        verfuegbar = true;
+        buchungen = new ArrayList<>();
     }
 
     public int getId() {
         return Id;
-    }
-
-    public boolean isVerfuegbar() {
-        return verfuegbar;
-    }
-
-    public void setVerfuegbar(boolean verfuegbar) {
-        this.verfuegbar = verfuegbar;
     }
 
     public List<String> getAusstattung() {

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${titel}">Buchung</title>
+</head>
+<body>
+<h1>Wann möchten Sie den Arbeitsplatz buchen?</h1>
+<form method="post">
+    <label for="datum">Datum:</label>
+    <input type="date" id="datum" name="datum" required>
+
+    <label for="uhrzeit">Uhrzeit:</label>
+    <input type="time" id="uhrzeit" name="uhrzeit" required>
+
+    <input type="hidden" name="id" th:value="${platzId}">
+
+    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+
+    <button type="submit">Buchen</button>
+</form>
+
+</body>
+</html>

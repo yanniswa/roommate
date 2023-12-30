@@ -25,8 +25,8 @@
                </ul>
             </td>
             <td>
-                <button type="submit">
-                    <a href="/user">buchen</a>
+                <button type="button">
+                    <a th:href="@{/user/{raumNummer}/buchung/{platzID}(raumNummer=${raum.getRoomnumber()},platzID=${arbeitsplatz.getId()})}">buchen</a>
                 </button></td>
         </tr>
         </tbody>
