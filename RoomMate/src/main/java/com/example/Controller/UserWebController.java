@@ -3,6 +3,7 @@ package com.example.Controller;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,13 +19,20 @@ public class UserWebController {
         this.roomService = roomService;
     }
     @PostMapping("/user/{roomNumber}/buchung/{platzID}")
-    public String platzBuchen( @Valid BuchungsForm buchungsForm, Error error){
-        return "buchvorgang";
+    public String platzBuchen(@ModelAttribute("form") @Valid BuchungsForm buchungsForm,
+                              BindingResult bindingResult,
+                              @PathVariable Integer platzID, Model model){
+        model.addAttribute("platzId",platzID);
+        if(bindingResult.hasErrors()){
+            return "buchvorgang";
+        }
+        return "redirect:/";
     }
     @GetMapping("/user/{roomNumber}/buchung/{platzID}")
     public String indexBuchvorgang(Model model,@PathVariable Integer platzID){
         model.addAttribute("titel","Buchung vom Platz "+platzID);
         model.addAttribute("platzId",platzID);
+        model.addAttribute("form",new BuchungsForm());
         return "buchvorgang";
     }
 

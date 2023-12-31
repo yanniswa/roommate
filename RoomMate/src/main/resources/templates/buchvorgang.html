@@ -6,12 +6,10 @@
 </head>
 <body>
 <h1>Wann möchten Sie den Arbeitsplatz buchen?</h1>
-<form method="post">
+<form method="post" th:object="${form}">
     <label for="datum">Datum:</label>
-    <input type="date" id="datum" name="datum" required>
-
-    <label for="uhrzeit">Uhrzeit:</label>
-    <input type="time" id="uhrzeit" name="uhrzeit" required>
+    <input type="datetime-local" id="datum" name="datum" required>
+    <small class="text-danger" th:if="${#fields.hasErrors('datum')}" th:errors="*{datum}">Fehler!</small>
 
     <input type="hidden" name="id" th:value="${platzId}">
 

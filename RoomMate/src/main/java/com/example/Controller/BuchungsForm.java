@@ -9,9 +9,9 @@ import java.time.LocalTime;
 
 public class BuchungsForm {
     @NotNull
-    private LocalDate datum;
-    @NotNull
-    private LocalTime uhrzeit;
+    @FutureOrPresent(message = "Bitte wähle ein Datum in der Gegenwart oder Zukunft")
+    private LocalDateTime datum;
+
     private int id;
 
     public int getId() {
@@ -22,19 +22,12 @@ public class BuchungsForm {
         this.id = id;
     }
 
-    public LocalDate getDatum() {
+    public LocalDateTime getDatum() {
         return datum;
     }
 
-    public void setDatum(LocalDate datum) {
+    public void setDatum(LocalDateTime datum) {
         this.datum = datum;
     }
 
-    public LocalTime getUhrzeit() {
-        return uhrzeit;
-    }
-
-    public void setUhrzeit(LocalTime uhrzeit) {
-        this.uhrzeit = uhrzeit;
-    }
 }
