@@ -26,6 +26,10 @@ public class UserWebController {
         if(bindingResult.hasErrors()){
             return "buchvorgang";
         }
+        if(buchungsForm.getAnfang().isAfter(buchungsForm.getEnde())){
+            model.addAttribute("error","Anfangszeit muss vor Endzeit sein");
+            return "buchvorgang";
+        }
         return "redirect:/";
     }
     @GetMapping("/user/{roomNumber}/buchung/{platzID}")
