@@ -25,6 +25,7 @@ public class buchungsService {
     }
     public boolean addBuchungToArbeitsplatz(int platzID, int roomNumber, LocalTime anfang, LocalTime ende,
                                             LocalDate datum, String benutzer){
+        System.out.println(benutzer);
         raum = roomService.getRoomByRoomNumber(roomNumber);
         List<Arbeitsplatz> raumArbeitsplaetze = raum.getArbeitsplaetze();
         Arbeitsplatz arbeitsplatz = getArbeitsplatz(platzID);
@@ -35,7 +36,6 @@ public class buchungsService {
                 .filter(e -> e.getAnfang().isBefore(ende) && e.getEnde().isAfter(ende)||
                         e.getAnfang().isBefore(ende) && e.getEnde().isBefore(ende))
                 .toList().isEmpty();
-        System.out.println(keineBuchungenImZeitraum);
         if(!keineBuchungenImZeitraum){
             return false;
         }

@@ -6,6 +6,7 @@ import com.example.Controller.domain.applicationservice.RoomService;
 import com.example.Controller.domain.model.BuchungsForm;
 import com.example.Controller.domain.model.Room;
 import jakarta.validation.Valid;
+import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -30,7 +31,8 @@ public class UserWebController {
     public String platzBuchen(@ModelAttribute("form") @Valid BuchungsForm buchungsForm,
                               BindingResult bindingResult,
                               @PathVariable Integer platzID, Model model,
-                              @PathVariable Integer roomNumber){
+                              @PathVariable Integer roomNumber,
+                              OAuth2AuthenticationToken auth){
         model.addAttribute("platzId",platzID);
         if(bindingResult.hasErrors()){
             return "buchvorgang";
@@ -39,7 +41,8 @@ public class UserWebController {
             model.addAttribute("error","Anfangszeit muss vor Endzeit sein");
             return "buchvorgang";
         }
-        if(!buchungsService.addBuchungToArbeitsplatz(platzID,roomNumber,buchungsForm.getAnfang(),buchungsForm.getEnde(),buchungsForm.getDatum(),"Yannis")){
+        String name = auth.getPrincipal().getAttribute("login");
+        if(!buchungsService.addBuchungToArbeitsplatz(platzID,roomNumber,buchungsForm.getAnfang(),buchungsForm.getEnde(),buchungsForm.getDatum(),name)){
             model.addAttribute("buchungsError","Es gibt schon eine Buchung in dem Zeitraum");
             return "buchvorgang";
         }else model.addAttribute("success","Buchung war erfolgreich");
