@@ -26,6 +26,11 @@
     <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
 
     <button type="submit">Buchen</button>
+
+    <h2>Freie Slots an dem Tag</h2>
+    <ol th:if="${freieSlots}">
+        <li th:each="slots : ${freieSlots}" th:text="${slots}">Freie Slots</li>
+    </ol>
 </form>
 
 </body>

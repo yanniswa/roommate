@@ -5,6 +5,7 @@ import com.example.Controller.domain.applicationservice.buchungsService;
 import com.example.Controller.domain.applicationservice.RoomService;
 import com.example.Controller.domain.model.BuchungsForm;
 import com.example.Controller.domain.model.Room;
+import com.example.Controller.domain.model.Zeitslot;
 import jakarta.validation.Valid;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.stereotype.Controller;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -44,6 +46,8 @@ public class UserWebController {
         String name = auth.getPrincipal().getAttribute("login");
         if(!buchungsService.addBuchungToArbeitsplatz(platzID,roomNumber,buchungsForm.getAnfang(),buchungsForm.getEnde(),buchungsForm.getDatum(),name)){
             model.addAttribute("buchungsError","Es gibt schon eine Buchung in dem Zeitraum");
+            List<Zeitslot> freieZeitslot = buchungsService.freieZeitslot(buchungsForm.getDatum(), roomNumber, platzID);
+            model.addAttribute("freieSlots",freieZeitslot);
             return "buchvorgang";
         }else model.addAttribute("success","Buchung war erfolgreich");
         return "redirect:/";
