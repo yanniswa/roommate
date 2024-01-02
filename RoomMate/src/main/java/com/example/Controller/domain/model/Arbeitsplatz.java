@@ -1,4 +1,6 @@
-package com.example.Controller;
+package com.example.Controller.domain.model;
+
+import com.example.Controller.domain.model.Buchung;
 
 import java.util.ArrayList;
 import java.util.List;

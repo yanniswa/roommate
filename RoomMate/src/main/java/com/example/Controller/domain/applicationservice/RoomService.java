@@ -1,11 +1,10 @@
-package com.example.Controller;
+package com.example.Controller.domain.applicationservice;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import com.example.Controller.domain.model.Arbeitsplatz;
+import com.example.Controller.domain.model.Room;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class RoomService {

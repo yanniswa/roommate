@@ -1,4 +1,6 @@
-package com.example.Controller;
+package com.example.Controller.domain.applicationservice;
+
+import com.example.Controller.domain.model.Room;
 
 import java.util.List;
 

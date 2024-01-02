@@ -1,5 +1,6 @@
-package com.example.Controller;
+package com.example.Controller.domain.model;
 
+import com.example.Controller.domain.model.Arbeitsplatz;
 import java.util.ArrayList;
 import java.util.List;
 

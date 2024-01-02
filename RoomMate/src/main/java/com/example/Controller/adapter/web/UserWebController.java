@@ -1,5 +1,9 @@
-package com.example.Controller;
+package com.example.Controller.adapter.web;
 
+
+import com.example.Controller.domain.applicationservice.RoomService;
+import com.example.Controller.domain.model.BuchungsForm;
+import com.example.Controller.domain.model.Room;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,6 +18,7 @@ import java.util.Optional;
 @Controller
 public class UserWebController {
     private final RoomService roomService;
+
 
     public UserWebController(RoomService roomService) {
         this.roomService = roomService;

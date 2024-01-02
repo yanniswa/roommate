@@ -1,4 +1,4 @@
-package com.example.Controller;
+package com.example.Controller.domain.model;
 
 import jakarta.validation.constraints.FutureOrPresent;
 import jakarta.validation.constraints.NotNull;
