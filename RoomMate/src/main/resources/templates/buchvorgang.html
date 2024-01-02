@@ -19,6 +19,8 @@
     <label for="ende">Bis:</label>
     <input type="time" id="ende" name="ende" required>
 
+    <small class="text-danger" th:if="${buchungsError != null}" th:text="${buchungsError}">Fehler!</small>
+
     <input type="hidden" name="id" th:value="${platzId}">
 
     <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />

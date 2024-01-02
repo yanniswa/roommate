@@ -1,6 +1,7 @@
 package com.example.Controller.domain.model;
 
 import com.example.Controller.domain.model.Buchung;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,6 +21,14 @@ public class Arbeitsplatz {
 
     public int getId() {
         return Id;
+    }
+
+    public List<Buchung> getBuchungen() {
+        return buchungen;
+    }
+
+    public void addBuchungen(Buchung buchung){
+        buchungen.add(buchung);
     }
 
     public List<String> getAusstattung() {

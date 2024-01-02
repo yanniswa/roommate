@@ -1,6 +1,7 @@
 package com.example.Controller.adapter.web;
 
 
+import com.example.Controller.domain.applicationservice.buchungsService;
 import com.example.Controller.domain.applicationservice.RoomService;
 import com.example.Controller.domain.model.BuchungsForm;
 import com.example.Controller.domain.model.Room;
@@ -18,15 +19,18 @@ import java.util.Optional;
 @Controller
 public class UserWebController {
     private final RoomService roomService;
+    private final buchungsService buchungsService;
 
 
-    public UserWebController(RoomService roomService) {
+    public UserWebController(RoomService roomService, buchungsService arbeitsplatzService) {
         this.roomService = roomService;
+        this.buchungsService = arbeitsplatzService;
     }
     @PostMapping("/user/{roomNumber}/buchung/{platzID}")
     public String platzBuchen(@ModelAttribute("form") @Valid BuchungsForm buchungsForm,
                               BindingResult bindingResult,
-                              @PathVariable Integer platzID, Model model){
+                              @PathVariable Integer platzID, Model model,
+                              @PathVariable Integer roomNumber){
         model.addAttribute("platzId",platzID);
         if(bindingResult.hasErrors()){
             return "buchvorgang";
@@ -35,6 +39,10 @@ public class UserWebController {
             model.addAttribute("error","Anfangszeit muss vor Endzeit sein");
             return "buchvorgang";
         }
+        if(!buchungsService.addBuchungToArbeitsplatz(platzID,roomNumber,buchungsForm.getAnfang(),buchungsForm.getEnde(),buchungsForm.getDatum(),"Yannis")){
+            model.addAttribute("buchungsError","Es gibt schon eine Buchung in dem Zeitraum");
+            return "buchvorgang";
+        }else model.addAttribute("success","Buchung war erfolgreich");
         return "redirect:/";
     }
     @GetMapping("/user/{roomNumber}/buchung/{platzID}")
