@@ -1,7 +1,7 @@
 package com.example.Controller.adapter.web;
 
 
-import com.example.Controller.domain.applicationservice.buchungsService;
+import com.example.Controller.domain.applicationservice.BuchungsService;
 import com.example.Controller.domain.applicationservice.RoomService;
 import com.example.Controller.domain.model.BuchungsForm;
 import com.example.Controller.domain.model.Room;
@@ -22,10 +22,10 @@ import java.util.Optional;
 @Controller
 public class UserWebController {
     private final RoomService roomService;
-    private final buchungsService buchungsService;
+    private final BuchungsService buchungsService;
 
 
-    public UserWebController(RoomService roomService, buchungsService arbeitsplatzService) {
+    public UserWebController(RoomService roomService, BuchungsService arbeitsplatzService) {
         this.roomService = roomService;
         this.buchungsService = arbeitsplatzService;
     }

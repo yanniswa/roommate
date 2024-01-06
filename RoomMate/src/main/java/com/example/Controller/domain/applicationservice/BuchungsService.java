@@ -13,13 +13,13 @@ import java.util.Comparator;
 import java.util.List;
 
 @Service
-public class buchungsService {
+public class BuchungsService {
     private int buchungsID = 0;
     private final RoomService roomService;
     private final Arbeitsplatz arbeitsplatz = null;
     private Room raum = null;
 
-    public buchungsService(RoomService roomService) {
+    public BuchungsService(RoomService roomService) {
         this.roomService = roomService;
     }
 
@@ -42,7 +42,6 @@ public class buchungsService {
             for (int j=0;j<60;j+=10){
                 LocalTime current = LocalTime.of(i,j);
                 List<Buchung> buchungenDavor = isFree(buchungen, current);
-                System.out.println(buchungenDavor.isEmpty());
                 if(buchungenDavor.isEmpty()){
                     previous = current;
                 }else{
