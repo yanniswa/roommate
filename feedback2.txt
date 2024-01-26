@@ -1,0 +1,42 @@
+Da sie keine Fragen haben oder Feedback zu bestimmten Themen möchten, kann ich Ihnen nur recht allgemein Feedback geben.
+Mit Woche 14 wurde der Kriterienkatalog für das Projekt veröffentlicht und ich empfehle wärmstens, diesen intensiv zu studieren.
+Sie werden darin einige gute Hinweise finden, wie Sie die einzelnen Aufgaben am besten umsetzen.
+Entsprechend basiert mein Feedback auch darauf.
+
+Sie haben bisher noch nicht (wirklich) begonnen mit:
+- Testing (!)
+- Persistenz (Datenbank, Repositories)
+
+Beides sind extrem wichtige Themen auch in Hinsicht auf die Klausur. Um wirklich zu verstehen, wie in Ihrer Anwendung Repositories mit Datenbanken und Spring Data interagieren,
+ist es unabdinglich, das selbst zu implementieren. Bezüglich Testing haben Sie bisher nur minimal Tests geschrieben. Im Kriterienkatalog wird auch nochmal erklärt, was beim
+Testing wichtig ist (z.B. dass Ihre Tests im Grunde Lesern beibringen sollen, wie man mit den Komponenten interagiert). Besonders die Validierung der Zeit, die Sie im BuchungsService
+durchführen, ist zu wenig getestet. Sie müssen z.B. auch testen, ob ungültige Zeiten abgelehnt werden, usw.
+
+
+Modellierung:
+Deklarieren Sie Ihre Modellierung explizit! 
+Am besten anhand von Annotationen (z.B. @AggregateRoot, @Value, etc.) oder zumindest durch Ordnerstruktur. Ersteres erleichtert jedoch das Testen mit ArchUnit.
+
+
+Domain:
+- Sie haben kein Benutzer Objekt. Wie wollen Sie einen Nutzer durch einen String hinreichend modellieren? Wie persistieren Sie Ihn in der Datenbank?
+- Der Sinn von BuchungsForm erschließt sich mir nicht. Ist das ein Hilfsobjekt? Wofür? Sie haben die Klasse Buchung, die alles enthält, was auch BuchungsForm enthält.
+- Zeitslot ist ein sinnvolles Fachobjekt. Allerdings denke ich, dass ein Datum durchaus auch sinnvoll ist und vor allem müssen sie Zeitslot dann auch im Buchungsobjekt verwenden.
+
+Wichtig: Schreiben Sie unbedingt ArchUnit-Tests, um die Onion-Architektur zu validieren. Nur so können Sie garantieren, dass Sie Ihre gewählte Modellierung auch einhalten, sobald
+das Projekt eine gewisse Größe annimmt und Sie beginnen zu refactoren.
+
+
+Services:
+- Warum hard-coden Sie die Initialisierung der Felder in BuchungsService? Soweit ich das beurteilen kann gibt es keinen Grund, einen einzelnen Raum, Arbeitsplatz oder eine ID 
+  dort überhaupt als Feld zu speichern, wenn Ihre Methoden die Objekte, die diese Informationen haben, als Parameter entgegennehmen.
+- Sie haben nur ein Repository für Räume. Was ist mit dem Rest? Wollen Sie nur Räume persistieren? Sie benötigen nicht für alle Objekte Repositories, aber mehr als eines ist hier 
+  schon nötig.
+  Die Repository-Interfaces müssen Sie dann allerdings auch in den Services benutzen! So kommen Sie an ebenjene Objekte, die Sie bisher hardcoden.
+  
+
+Authorisierung:
+- Sie haben zwar schon Controller, aber noch keine rollenbasierte (Admin, User) Authorisierung implementiert. Stichworte dazu sind @Secured und Wochenblatt 6.
+
+Es gibt noch einige weitere Punkte, die Sie bisher nicht in Ihrem Projekt adressiert haben (Deployment mit Docker oder Dokumentation z.B.). Dazu kann ich Ihnen allerdings kein
+besseres Feedback geben, als Sie aus dem Kriterienkatalog auch selbst erhalten könnten, da Sie keinen Ansatz haben, an dem ich mein Feedback orientieren könnte.
