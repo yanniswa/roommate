@@ -32,34 +32,8 @@ public class BuchungsService {
         return liste.getFirst();
     }
     public List<Zeitslot> freieZeitslot(LocalDate datum,int roomnumber, int platzId){
-        List<Zeitslot> freieSlot = new ArrayList<>();
         Room room = roomService.getRoomByRoomNumber(roomnumber);
-        Arbeitsplatz arbeitsplatz = room.getArbeitsplaetze().stream().filter(e -> e.getId() == platzId).findFirst().get();
-        List<Buchung> buchungen = new ArrayList<>(arbeitsplatz.getBuchungen());
-        LocalTime anfang = LocalTime.of(0,0);
-        LocalTime previous= null;
-        for(int i=0; i<24;i++){
-            for (int j=0;j<60;j+=10){
-                LocalTime current = LocalTime.of(i,j);
-                List<Buchung> buchungenDavor = isFree(buchungen, current);
-                if(buchungenDavor.isEmpty()){
-                    previous = current;
-                }else{
-                    freieSlot.add(new Zeitslot(anfang,previous));
-                    Buchung buchungVorFreienSlot = getMin(buchungenDavor);
-                    anfang = buchungVorFreienSlot.getEnde();
-                    previous = buchungVorFreienSlot.getEnde().plusMinutes(10);
-                    i= buchungVorFreienSlot.getEnde().getHour();
-                    j= buchungVorFreienSlot.getEnde().getMinute();
-                    buchungen.remove(buchungVorFreienSlot);
-                }
-            }
-        }
-        if(anfang.isAfter(previous)){
-            return freieSlot;
-        }
-        freieSlot.add(new Zeitslot(anfang,previous));
-        return freieSlot;
+        return room.freieSlots(datum,platzId);
     }
     private Arbeitsplatz getArbeitsplatz(int platzID){
         return raum.getArbeitsplaetze().stream().filter(e->e.getId()==platzID).findFirst().get();

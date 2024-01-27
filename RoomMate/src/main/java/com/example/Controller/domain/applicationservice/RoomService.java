@@ -2,12 +2,13 @@ package com.example.Controller.domain.applicationservice;
 
 import com.example.Controller.domain.model.Arbeitsplatz;
 import com.example.Controller.domain.model.Room;
+import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
-@Service
+@Repository
 public class RoomService {
 
    List<Arbeitsplatz> arbeitsplaetze =  List.of(new Arbeitsplatz(List.of("USB","Computer"),1),new Arbeitsplatz(List.of("Steckdose","Computer"),2));

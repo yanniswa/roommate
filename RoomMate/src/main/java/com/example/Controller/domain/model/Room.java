@@ -1,6 +1,9 @@
 package com.example.Controller.domain.model;
 
 import com.example.Controller.domain.model.Arbeitsplatz;
+
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,6 +37,12 @@ public class Room {
     }
     public int anzahlArbeitsplaetze(){
         return arbeitsplaetze.size();
+    }
+
+    public List<Zeitslot> freieSlots(LocalDate datum, int platzID){
+        Arbeitsplatz arbeitsplatz = arbeitsplaetze.stream().filter(e->e.getId()==platzID).findFirst().get();
+        return arbeitsplatz.freieZeitslots();
+
     }
 
 
