@@ -80,6 +80,9 @@ public class BuchungsService {
                         e.getAnfang().equals(anfang) || e.getEnde().equals(anfang))
                 .toList().isEmpty();
 
+        if(datum.isBefore(LocalDate.now())){
+            return false;
+        }
         if(!keineBuchungenImZeitraum){
             return false;
         }

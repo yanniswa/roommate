@@ -20,4 +20,26 @@ class buchungsServiceTest {
         assertThat(b).isTrue();
         assertThat(roomService.getRoomByRoomNumber(25).getArbeitsplaetze().get(0).getBuchungen()).hasSize(1);
     }
+
+    @Test
+    @DisplayName("Raum wird nicht hinzugefügt, wenn Zeitslot belegt ist ist ")
+    void test_2() {
+        BuchungsService buchungsService = new BuchungsService(roomService);
+        boolean b = buchungsService.addBuchungToArbeitsplatz(1, 25, LocalTime.of(0, 0)
+                , LocalTime.of(2, 0), LocalDate.now(), "Test");
+        boolean a = buchungsService.addBuchungToArbeitsplatz(1, 25, LocalTime.of(0, 0)
+                , LocalTime.of(2, 0), LocalDate.now(), "Test");
+        assertThat(a).isFalse();
+        assertThat(roomService.getRoomByRoomNumber(25).getArbeitsplaetze().get(0).getBuchungen()).hasSize(1);
+    }
+    @Test
+    @DisplayName("Ungueltige Zeiteingabe")
+    void test_3() {
+        BuchungsService buchungsService = new BuchungsService(roomService);
+        boolean b = buchungsService.addBuchungToArbeitsplatz(1, 25, LocalTime.of(0, 0)
+                ,LocalTime.of(2, 0) , LocalDate.of(2004, 02, 11), "Test");
+        assertThat(b).isFalse();
+        assertThat(roomService.getRoomByRoomNumber(25).getArbeitsplaetze().get(0).getBuchungen()).hasSize(0);
+
+    }
 }
