@@ -23,14 +23,7 @@ public class BuchungsService {
         this.roomService = roomService;
     }
 
-    private List<Buchung> isFree(List<Buchung> buchungen, LocalTime zeit){
-        return buchungen.stream().filter(e -> e.getAnfang().isBefore(zeit)||e.getAnfang().equals(zeit)).toList();
-    }
-    private Buchung getMin(List<Buchung> liste){
-        liste.stream()
-                .min(Comparator.comparing(Buchung::getAnfang));
-        return liste.getFirst();
-    }
+
     public List<Zeitslot> freieZeitslot(LocalDate datum,int roomnumber, int platzId){
         Room room = roomService.getRoomByRoomNumber(roomnumber);
         return room.freieSlots(datum,platzId);
