@@ -5,14 +5,14 @@ import java.time.LocalTime;
 
 public class Buchung {
 
-    int id;
+    int id=-1;
     private LocalDate localDate;
     private LocalTime anfang;
     private LocalTime ende;
     private String benutzer;
 
-    public Buchung(int id, LocalDate localDateTime, LocalTime anfang, LocalTime ende, String benutzer) {
-        this.id = id;
+    public Buchung(LocalDate localDateTime, LocalTime anfang, LocalTime ende, String benutzer) {
+        this.id = id+1;
         this.localDate = localDateTime;
         this.anfang = anfang;
         this.ende = ende;

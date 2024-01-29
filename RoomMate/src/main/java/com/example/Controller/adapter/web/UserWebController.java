@@ -1,10 +1,9 @@
 package com.example.Controller.adapter.web;
 
 
+import com.example.Controller.database.ArbeitsplatzRepository;
 import com.example.Controller.domain.applicationservice.BuchungsService;
-import com.example.Controller.domain.applicationservice.RoomService;
 import com.example.Controller.domain.model.BuchungsForm;
-import com.example.Controller.domain.model.Room;
 import com.example.Controller.domain.model.Zeitslot;
 import jakarta.validation.Valid;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
@@ -17,25 +16,23 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
-import java.util.Optional;
 
 @Controller
 public class UserWebController {
-    private final RoomService roomService;
     private final BuchungsService buchungsService;
 
 
-    public UserWebController(RoomService roomService, BuchungsService arbeitsplatzService) {
-        this.roomService = roomService;
+    public UserWebController(BuchungsService arbeitsplatzService) {
         this.buchungsService = arbeitsplatzService;
     }
-    @PostMapping("/user/{roomNumber}/buchung/{platzID}")
+
+
+
+    @PostMapping("user/{arbeitsplatzId}")
     public String platzBuchen(@ModelAttribute("form") @Valid BuchungsForm buchungsForm,
-                              BindingResult bindingResult,
-                              @PathVariable Integer platzID, Model model,
-                              @PathVariable Integer roomNumber,
-                              OAuth2AuthenticationToken auth){
-        model.addAttribute("platzId",platzID);
+                              BindingResult bindingResult,@PathVariable Integer arbeitsplatzId,
+                              Model model,OAuth2AuthenticationToken auth){
+        model.addAttribute("platzId",arbeitsplatzId);
         if(bindingResult.hasErrors()){
             return "buchvorgang";
         }
@@ -44,42 +41,30 @@ public class UserWebController {
             return "buchvorgang";
         }
         String name = auth.getPrincipal().getAttribute("login");
-        if(!buchungsService.addBuchungToArbeitsplatz(platzID,roomNumber,buchungsForm.getAnfang(),buchungsForm.getEnde(),buchungsForm.getDatum(),name)){
+        if(!buchungsService.addBuchungToArbeitsplatz(arbeitsplatzId,buchungsForm.getAnfang(),buchungsForm.getEnde(),buchungsForm.getDatum(),name)){
             model.addAttribute("buchungsError","Es gibt schon eine Buchung in dem Zeitraum");
-            List<Zeitslot> freieZeitslot = buchungsService.freieZeitslot(buchungsForm.getDatum(), roomNumber, platzID);
+            List<Zeitslot> freieZeitslot = buchungsService.freieZeitslot(buchungsForm.getDatum(),arbeitsplatzId);
             model.addAttribute("freieSlots",freieZeitslot);
             return "buchvorgang";
         }else model.addAttribute("success","Buchung war erfolgreich");
         return "redirect:/";
     }
-    @GetMapping("/user/{roomNumber}/buchung/{platzID}")
-    public String indexBuchvorgang(Model model,@PathVariable Integer platzID){
-        model.addAttribute("titel","Buchung vom Platz "+platzID);
-        model.addAttribute("platzId",platzID);
+    @GetMapping("/user/{arbeitsplatzId}")
+    public String plaetzeUebersicht(@PathVariable Integer arbeitsplatzId,Model model){
+        model.addAttribute("titel","Buchung vom Platz "+arbeitsplatzId);
+        model.addAttribute("platzId",arbeitsplatzId);
         model.addAttribute("form",new BuchungsForm());
         return "buchvorgang";
     }
-
-    @GetMapping("/user/{roomNumber}")
-    public String plaetzeUebersicht(@PathVariable Integer roomNumber,Model model){
-        Optional<Room> raum = roomService.getAllRooms().stream()
-                .filter(e -> e.getRoomnumber() == roomNumber)
-                .findAny();
-        if(raum.isPresent()){
-            model.addAttribute("raum",raum.get());
-        }
-        model.addAttribute("arbeitsplaetze",raum.get().getArbeitsplaetze());
-        return "platzUebersicht";
-    }
     @GetMapping("/")
-    public String index(Model model, RoomService roomService){
-        model.addAttribute("raumList",roomService.getAllRooms());
+    public String index(Model model, ArbeitsplatzRepository rep){
+        model.addAttribute("arbeitsplatzList",rep.getArbeitsplaetze());
         return "index";
     }
 
     @GetMapping("/user")
-    public String userSeite(Model model,RoomService roomService){
-        model.addAttribute("raumList",roomService.getAllRooms());
+    public String userSeite(Model model,ArbeitsplatzRepository rep){
+        model.addAttribute("arbeitsplatzList",rep.getArbeitsplaetze());
         return "user";
     }
 

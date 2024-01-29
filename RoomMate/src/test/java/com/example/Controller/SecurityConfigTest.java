@@ -1,8 +1,8 @@
 package com.example.Controller;
 
 import com.example.Controller.Helper.WithMockOAuth2User;
+import com.example.Controller.database.ArbeitsplatzRepository;
 import com.example.Controller.domain.applicationservice.BuchungsService;
-import com.example.Controller.domain.applicationservice.RoomService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +12,6 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest
@@ -22,7 +21,7 @@ class SecurityConfigTest {
     MockMvc mvc;
 
     @MockBean
-    RoomService roomService;
+    ArbeitsplatzRepository rep;
 
     @MockBean
     BuchungsService buchungsService;

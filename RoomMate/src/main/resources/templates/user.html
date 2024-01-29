@@ -20,19 +20,23 @@
     <table border="1">
         <thead>
         <tr>
-            <th>Raum</th>
-            <th>Verfügbare Plätze</th>
+            <th>Arbeitsplätze</th>
+            <th>Ausstattung</th>
             <th></th>
         </tr>
         </thead>
         <tbody>
         <!-- Loop durch die Raumobjekte im Modell -->
-        <tr th:each="raum : ${raumList}">
-            <td th:text="${raum.getRoomnumber}"></td>
-            <td th:text="${raum.anzahlArbeitsplaetze()}"></td>
+        <tr th:each="arbeitsplatz : ${arbeitsplatzList}">
+            <td th:text="${arbeitsplatz.getId()}"></td>
+            <td>
+                <ul>
+                    <li th:each="ausstattung : ${arbeitsplatz.getAusstattung()}" th:text="${ausstattung}"></li>
+                </ul>
+            </td>
             <td>
                 <button type="submit">
-                    <a th:href="@{/user/{raumNummer}(raumNummer=${raum.getRoomnumber()})}">Raumübersicht</a>
+                    <a th:href="@{/user/{arbeitsplatzId}(arbeitsplatzId=${arbeitsplatz.getId()})}">Buchen</a>
                 </button></td>
         </tr>
         </tbody>

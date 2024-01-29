@@ -1,11 +1,10 @@
 package com.example.Controller;
 
 import com.example.Controller.Helper.WithMockOAuth2User;
+import com.example.Controller.database.ArbeitsplatzRepository;
 import com.example.Controller.domain.applicationservice.BuchungsService;
-import com.example.Controller.domain.applicationservice.RoomService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -21,7 +20,7 @@ public class UserWebControllerTests {
     @Autowired
     MockMvc mvc;
     @MockBean
-    RoomService roomService;
+    ArbeitsplatzRepository rep;
     @MockBean
     BuchungsService buchungsService;
 

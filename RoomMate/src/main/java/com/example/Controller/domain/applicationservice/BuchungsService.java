@@ -1,5 +1,6 @@
 package com.example.Controller.domain.applicationservice;
 
+import com.example.Controller.database.ArbeitsplatzRepository;
 import com.example.Controller.domain.model.Arbeitsplatz;
 import com.example.Controller.domain.model.Buchung;
 import com.example.Controller.domain.model.Room;
@@ -8,53 +9,29 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class BuchungsService {
-    private int buchungsID = 0;
-    private final RoomService roomService;
-    private final Arbeitsplatz arbeitsplatz = null;
-    private Room raum = null;
 
-    public BuchungsService(RoomService roomService) {
-        this.roomService = roomService;
+    private final ArbeitsplatzRepository repository;
+
+    public BuchungsService(ArbeitsplatzRepository repository) {
+        this.repository = repository;
     }
 
 
-    public List<Zeitslot> freieZeitslot(LocalDate datum,int roomnumber, int platzId){
-        Room room = roomService.getRoomByRoomNumber(roomnumber);
-        return room.freieSlots(datum,platzId);
+    public List<Zeitslot> freieZeitslot(LocalDate datum,int platzId){
+        Optional<Arbeitsplatz> arbeitsplatzByID = repository.getArbeitsplatzByID(platzId);
+        return arbeitsplatzByID.get().freieZeitslots(datum);
     }
-    private Arbeitsplatz getArbeitsplatz(int platzID){
-        return raum.getArbeitsplaetze().stream().filter(e->e.getId()==platzID).findFirst().get();
+    public Arbeitsplatz getArbeitsplatz(int platzID){
+        return repository.getArbeitsplatzByID(platzID).get();
     }
-    public boolean addBuchungToArbeitsplatz(int platzID, int roomNumber, LocalTime anfang, LocalTime ende,
+    public boolean addBuchungToArbeitsplatz(int platzID,LocalTime anfang, LocalTime ende,
                                             LocalDate datum, String benutzer){
-        raum = roomService.getRoomByRoomNumber(roomNumber);
-        Arbeitsplatz arbeitsplatz = getArbeitsplatz(platzID);
-        List<Buchung> buchungen = arbeitsplatz.getBuchungen();
-        boolean keineBuchungenImZeitraum = buchungen.stream().filter(e -> e.getLocalDate().isEqual(datum))
-                .filter(e -> e.getAnfang().isBefore(anfang) && e.getEnde().isAfter(anfang) ||
-                        e.getAnfang().isAfter(anfang)&& e.getEnde().isAfter(anfang) ||
-                        e.getAnfang().equals(anfang) || e.getEnde().equals(anfang)||
-                        e.getAnfang().equals(ende) || e.getEnde().equals(ende))
-                .filter(e -> e.getAnfang().isBefore(ende) && e.getEnde().isAfter(ende)||
-                        e.getAnfang().isBefore(ende) && e.getEnde().isBefore(ende)||
-                        e.getAnfang().equals(ende) || e.getEnde().equals(ende)||
-                        e.getAnfang().equals(anfang) || e.getEnde().equals(anfang))
-                .toList().isEmpty();
-
-        if(datum.isBefore(LocalDate.now())){
-            return false;
-        }
-        if(!keineBuchungenImZeitraum){
-            return false;
-        }
-        arbeitsplatz.addBuchungen(new Buchung(buchungsID,datum,anfang,ende,benutzer));
-        buchungsID++;
-        return true;
+        Arbeitsplatz arbeitsplatz = repository.getArbeitsplatzByID(platzID).get();
+        return arbeitsplatz.addBuchung(anfang, ende, datum, benutzer);
     }
 }
