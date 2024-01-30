@@ -45,7 +45,9 @@ import java.util.List;
         if(datum.isBefore(LocalDate.now())){
             return false;
         }
-        if(!keineBuchungenImZeitraum){
+        else if(!keineBuchungenImZeitraum){
+            return false;
+        } else if (LocalTime.now().isAfter(anfang)) {
             return false;
         }
         buchungen.add(new Buchung(datum,anfang,ende,benutzer));
