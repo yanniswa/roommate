@@ -23,7 +23,9 @@ import java.util.List;
         this.room= new Room(roomNumber);
     }
 
-
+    public List<Buchung> getBuchungen() {
+        return buchungen;
+    }
 
     public int getId() {
         return Id;
