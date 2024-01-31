@@ -47,7 +47,7 @@ import java.util.List;
         }
         else if(!keineBuchungenImZeitraum){
             return false;
-        } else if (LocalTime.now().isAfter(anfang)) {
+        } else if (LocalTime.now().isAfter(anfang)&& datum.isEqual(LocalDate.now())) {
             return false;
         }
         buchungen.add(new Buchung(datum,anfang,ende,benutzer));
@@ -73,7 +73,7 @@ import java.util.List;
      }
 
     public List<Zeitslot> freieZeitslots(LocalDate datum){
-        List<Buchung> buchungAnDemTag = buchungen.stream().filter(e->e.getLocalDate().isEqual(datum)).toList();
+        List<Buchung> buchungAnDemTag = new ArrayList<>(buchungen.stream().filter(e->e.getLocalDate().isEqual(datum)).toList());
         List<Zeitslot> freieSlot = new ArrayList<>();
         LocalTime anfang = LocalTime.of(0,0);
         LocalTime previous= null;

@@ -43,8 +43,8 @@ public class UserWebController {
         String name = auth.getPrincipal().getAttribute("login");
         if(!buchungsService.addBuchungToArbeitsplatz(arbeitsplatzId,buchungsForm.getAnfang(),buchungsForm.getEnde(),buchungsForm.getDatum(),name)){
             model.addAttribute("buchungsError","Es gibt schon eine Buchung in dem Zeitraum");
-            List<Zeitslot> freieZeitslot = buchungsService.freieZeitslot(buchungsForm.getDatum(),arbeitsplatzId);
-            model.addAttribute("freieSlots",freieZeitslot);
+            List<Zeitslot> zeitslots = buchungsService.freieZeitslot(buchungsForm.getDatum(), arbeitsplatzId);
+            model.addAttribute("freieSlots",zeitslots);
             return "buchvorgang";
         }else model.addAttribute("success","Buchung war erfolgreich");
         return "redirect:/";
