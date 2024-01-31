@@ -3,7 +3,7 @@ package RoomMate.domain.model;
 import RoomMate.annotations.Entity;
 
 @Entity
-public class Room {
+class Room {
     private int roomnumber;
 
     public Room(int roomnumber) {

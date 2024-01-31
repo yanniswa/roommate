@@ -1,15 +1,17 @@
 package RoomMate.domain.model;
 
+import RoomMate.annotations.Value;
+
 import java.time.LocalDate;
 import java.time.LocalTime;
-
+@Value
 public class Buchung {
 
     int id=-1;
-    private LocalDate localDate;
-    private LocalTime anfang;
-    private LocalTime ende;
-    private String benutzer;
+    private final LocalDate localDate;
+    private final LocalTime anfang;
+    private final LocalTime ende;
+    private final String benutzer;
 
     public Buchung(LocalDate localDateTime, LocalTime anfang, LocalTime ende, String benutzer) {
         this.id = id+1;

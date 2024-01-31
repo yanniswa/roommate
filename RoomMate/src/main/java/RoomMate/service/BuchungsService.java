@@ -36,4 +36,5 @@ public class BuchungsService {
     public List<Arbeitsplatz> alleArbeitsplaetze(){
         return repository.getArbeitsplaetze();
     }
+
 }
