@@ -1,5 +1,6 @@
 package RoomMate.web;
 
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -8,7 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/admin")
 public class AdminWebController {
 
-    @GetMapping
+    @GetMapping()
+    @Secured("ROLE_ADMIN")
     public String index(){
         return "AdminFunktionen";
     }
