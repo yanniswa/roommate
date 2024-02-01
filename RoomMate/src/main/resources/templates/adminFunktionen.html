@@ -7,11 +7,33 @@
 <body>
 
 <h1>RoomMate Admin Panel</h1>
-    <ul>
-        <li><a href="http://localhost:8080">Raum 1</a></li>
-        <li><a href="http://localhost:8080">Raum 2</a></li>
-        <li><a href="http://localhost:8080">Raum 3</a></li>
-    </ul>
+<h2>Arbeitsplatzübersicht</h2>
+<table border="1">
+    <thead>
+    <tr>
+        <th>Arbeitsplätze</th>
+        <th>Ausstattung</th>
+        <th>Raumnummer</th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    <!-- Loop durch die Raumobjekte im Modell -->
+    <tr th:each="arbeitsplatz : ${arbeitsplaetze}">
+        <td th:text="${arbeitsplatz.getId()}"></td>
+        <td>
+            <ul>
+                <li th:each="ausstattung : ${arbeitsplatz.getAusstattung()}" th:text="${ausstattung}"></li>
+            </ul>
+        </td>
+        <td th:text="${arbeitsplatz.getRaumnummer()}"></td>
+        <td>
+            <button type="submit">
+                <a th:href="@{/admin/{arbeitsplatzId}(arbeitsplatzId=${arbeitsplatz.getId()})}">Ausstattung bearbeiten</a>
+            </button></td>
+    </tr>
+    </tbody>
+</table>
 
 </body>
 </html>

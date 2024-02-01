@@ -16,6 +16,7 @@ import org.springframework.test.web.servlet.MvcResult;
 
 import java.util.List;
 
+import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.CoreMatchers.not;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -46,5 +47,6 @@ public class AdminWebControllerTest {
         mockMvc.perform(get("/admin"))
                 .andExpect(model().attribute("arbeitsplaetze", arbeitsplaetze));
     }
+
 
 }
