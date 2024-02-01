@@ -22,6 +22,7 @@
         <tr>
             <th>Arbeitsplätze</th>
             <th>Ausstattung</th>
+            <th>Raumnummer</th>
             <th></th>
         </tr>
         </thead>
@@ -34,6 +35,7 @@
                     <li th:each="ausstattung : ${arbeitsplatz.getAusstattung()}" th:text="${ausstattung}"></li>
                 </ul>
             </td>
+            <td th:text="${arbeitsplatz.getRaumnummer()}"></td>
             <td>
                 <button type="submit">
                     <a th:href="@{/user/{arbeitsplatzId}(arbeitsplatzId=${arbeitsplatz.getId()})}">Buchen</a>

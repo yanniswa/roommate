@@ -15,6 +15,10 @@ import java.util.List;
     Room room;
     private List<String> ausstattung;
 
+    public int getRaumnummer(){
+        return room.getRoomnumber();
+    }
+
 
     public Arbeitsplatz(List<String> ausstattung,int Id, int  roomNumber) {
         this.Id =Id;
