@@ -30,7 +30,7 @@ public class SecurityConfig {
                             .anyRequest().authenticated()
                     )
                     .logout(c->c.logoutSuccessUrl("/"))
-                   // .csrf(c->c.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()))
+                    .csrf(c->c.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()))
                     .oauth2Login(Customizer.withDefaults());
 
             return chainBuilder.build();

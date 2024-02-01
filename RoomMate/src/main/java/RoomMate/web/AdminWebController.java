@@ -6,12 +6,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/admin")
 public class AdminWebController {
 
-    @GetMapping()
+    @GetMapping("/admin")
     @Secured("ROLE_ADMIN")
     public String index(){
-        return "AdminFunktionen";
+        return "adminFunktionen";
     }
 }
