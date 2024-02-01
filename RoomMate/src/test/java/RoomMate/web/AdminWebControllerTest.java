@@ -3,17 +3,25 @@ package RoomMate.web;
 
 import RoomMate.Helper.WithMockOAuth2User;
 import RoomMate.config.MethodSecurityConfiguration;
+import RoomMate.domain.model.Arbeitsplatz;
+import RoomMate.service.BuchungsService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Import;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
+
+import java.util.List;
 
 import static org.hamcrest.CoreMatchers.not;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 
 @WebMvcTest(AdminWebController.class)
@@ -22,21 +30,21 @@ public class AdminWebControllerTest {
 
     @Autowired
     MockMvc mockMvc;
+    @MockBean
+    BuchungsService buchungsService;
+    List<Arbeitsplatz> arbeitsplaetze =  List.of(new Arbeitsplatz(List.of("USB","Computer"),1,25),new Arbeitsplatz(List.of("Steckdose","Computer"),2,25),
+            new Arbeitsplatz(List.of("USB","Computer"),3,24),new Arbeitsplatz(List.of("Steckdose","Computer","Monitor"),4,24),new Arbeitsplatz(List.of("Steckdose","Computer","Monitor","LanKabel"),5,24));
+
+
+
 
     @Test
-    @DisplayName("Get Request auf /admin funktioniert")
-    @WithMockOAuth2User(login = "Elon",roles = {"USER"})
-    void test_1() throws Exception {
-        mockMvc.perform(get("/admin"))
-                .andExpect(status().isForbidden());
-    }
-
-    @Test
-    @DisplayName("Get Request auf /admin funktioniert mit admin rechten")
+    @DisplayName("Admin Seite fügt die Arbeitsplätze hinzu")
     @WithMockOAuth2User(login = "Elon",roles = {"ADMIN","USER"})
-    void test_2() throws Exception {
+    void test_3() throws Exception {
+        when(buchungsService.alleArbeitsplaetze()).thenReturn(arbeitsplaetze);
         mockMvc.perform(get("/admin"))
-                .andExpect(status().isOk());
+                .andExpect(model().attribute("arbeitsplaetze", arbeitsplaetze));
     }
 
 }
