@@ -7,11 +7,37 @@
 <body>
 
 <h1>RoomMate Admin Panel</h1>
+
+
     <ul>
         <li><a href="http://localhost:8080">Raum 1</a></li>
         <li><a href="http://localhost:8080">Raum 2</a></li>
         <li><a href="http://localhost:8080">Raum 3</a></li>
     </ul>
+
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Benutzer</th>
+                <th>Tag</th>
+                <th>Anfang</th>
+                <th>Ende</th>
+                <th>Bearbeiten</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr th:each="buchung : ${buchungenList}">
+                <td th:text="${buchung.getId()}">lev</td>
+                <td th:text="${buchung.getBenutzer()}"> ev</td>
+                <td th:text="${buchung.getLocalDate()}"> e,v</td>
+                <td th:text="${buchung.getAnfang()}">knrel</td>
+                <td th:text="${buchung.getEnde()}">krlnnv</td>
+                <td> <button type="button">Löschen</button> </td>
+            </tr>
+        </tbody>
+    </table>
 
 </body>
 </html>

@@ -2,6 +2,7 @@ package RoomMate.service;
 
 import RoomMate.database.ArbeitsplatzRepositoryImpl;
 import RoomMate.domain.model.Arbeitsplatz;
+import RoomMate.domain.model.Buchung;
 import RoomMate.domain.model.Zeitslot;
 import org.springframework.stereotype.Service;
 
@@ -36,5 +37,7 @@ public class BuchungsService {
     public List<Arbeitsplatz> alleArbeitsplaetze(){
         return repository.getArbeitsplaetze();
     }
+
+    public List<Buchung> alleBuchungen() { return repository.getBuchungen(); }
 
 }
