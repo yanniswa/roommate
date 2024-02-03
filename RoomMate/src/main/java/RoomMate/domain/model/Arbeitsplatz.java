@@ -32,9 +32,12 @@ import java.util.List;
     }
 
 
+    public int getroomnumber() {
+        return room.getRoomnumber();
+    }
 
     public boolean addBuchung(LocalTime anfang, LocalTime ende,
-                           LocalDate datum, String benutzer){
+                              LocalDate datum, String benutzer){
         boolean keineBuchungenImZeitraum = buchungen.stream().filter(e -> e.getLocalDate().isEqual(datum))
                 .filter(e -> e.getAnfang().isBefore(anfang) && e.getEnde().isAfter(anfang) ||
                         e.getAnfang().isAfter(anfang)&& e.getEnde().isAfter(anfang) ||

@@ -39,5 +39,29 @@
         </tbody>
     </table>
 
+    <table>
+        <thead>
+            <tr>
+                <th>ArbeitsplatzID</th>
+                <th>Ausstattung</th>
+                <th>RaumNr</th>
+                <th>Bearbeiten</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr th:each="arbeitsplatz : ${arbeitsplatzList}">
+                <td th:text="${arbeitsplatz.getId()}"></td>
+                <td>
+                    <ul>
+                        <li th:each="ausstattung : ${arbeitsplatz.getAusstattung()}" th:text="${ausstattung}"></li>
+                    </ul>
+                </td>
+               <td th:text="${arbeitsplatz.getroomnumber()}">1</td>
+                <td> <button type="button">Löschen</button> </td>
+            </tr>
+        </tbody>
+    </table>
+
 </body>
 </html>

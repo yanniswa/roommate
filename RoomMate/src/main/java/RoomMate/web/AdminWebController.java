@@ -21,6 +21,7 @@ public class AdminWebController {
     @Secured("ROLE_ADMIN")
     public String index(Model model){
         model.addAttribute("buchungenList", buchungsService.alleBuchungen());
+        model.addAttribute("arbeitsplatzList", buchungsService.alleArbeitsplaetze());
         return "adminFunktionen";
     }
 }
