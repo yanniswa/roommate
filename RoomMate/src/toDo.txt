@@ -7,3 +7,5 @@ Raumnummern etc.
 //Datenbanken einführen
 //Die Fehlermeldung und Success Meldung anzeigen lassen
 //Die Seiten mit CSS schöner aussehene lassen
+//Benutzer Objekt einführen
+//Eventuell zu den Buchungen den Raum und Arbeitsplatz anzeigen --> Raumnummer und ArbeitsplatzID müsste in der BuchungsKlasse gespeichert werden

@@ -27,6 +27,7 @@ public class ArbeitsplatzRepositoryImpl implements RoomMate.service.Arbeitsplatz
     public List<Buchung> getBuchungen(){
         List<Buchung> buchungen = new ArrayList<>();
         buchungen.add(new Buchung(LocalDate.of(2024,02,24), LocalTime.of(18,30), LocalTime.of(20,30), "tobi"));
+        arbeitsplaetze.forEach(e->buchungen.addAll(e.getBuchungen()));
         return buchungen;
         // Dummy Werte werden zurück gegeben
     }
