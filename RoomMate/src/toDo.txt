@@ -5,4 +5,5 @@
 //Den Zugriff über die URl nur auf gültige Eingaben zulassen, also nur für gültige
 Raumnummern etc.
 //Datenbanken einführen
-//
+//Die Fehlermeldung und Success Meldung anzeigen lassen
+//Die Seiten mit CSS schöner aussehene lassen

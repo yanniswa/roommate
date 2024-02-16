@@ -32,4 +32,12 @@ public class Buchung {
     public LocalTime getEnde() {
         return ende;
     }
+
+    public int getId() {
+        return id;
+    }
+
+    public String getBenutzer() {
+        return benutzer;
+    }
 }

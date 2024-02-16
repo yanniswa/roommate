@@ -35,5 +35,40 @@
     </tbody>
 </table>
 
+<table border="1">
+    <thead>
+    <tr>
+        <th>BuchungsID</th>
+        <th>Benutzer</th>
+        <th>Datum</th>
+        <th>Uhrzeit</th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    <!-- Loop durch die Raumobjekte im Modell -->
+    <tr th:each="buchung : ${alleBuchungen}">
+        <td th:text="${buchung.getId()}"></td>
+        <td>
+            <ul>
+                <li th:text="${buchung.getBenutzer()}"></li>
+            </ul>
+        </td>
+        <td th:text="${buchung.getLocalDate()}"></td>
+        <td>
+            <span th:text="${buchung.getAnfang()}"></span>
+            <span> bis </span>
+            <span th:text="${buchung.getEnde()}"></span>
+        </td>
+
+        </td>
+        <td>
+            <button type="submit">
+                <a href="/admin">BuchungLöschen</a>
+            </button></td>
+    </tr>
+    </tbody>
+</table>
+
 </body>
 </html>

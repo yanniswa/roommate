@@ -4,6 +4,7 @@ package RoomMate.web;
 import RoomMate.Helper.WithMockOAuth2User;
 import RoomMate.config.MethodSecurityConfiguration;
 import RoomMate.domain.model.Arbeitsplatz;
+import RoomMate.domain.model.Buchung;
 import RoomMate.service.BuchungsService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -14,6 +15,8 @@ import org.springframework.context.annotation.Import;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 
 import static org.hamcrest.CoreMatchers.containsString;
@@ -35,7 +38,7 @@ public class AdminWebControllerTest {
     BuchungsService buchungsService;
     List<Arbeitsplatz> arbeitsplaetze =  List.of(new Arbeitsplatz(List.of("USB","Computer"),1,25),new Arbeitsplatz(List.of("Steckdose","Computer"),2,25),
             new Arbeitsplatz(List.of("USB","Computer"),3,24),new Arbeitsplatz(List.of("Steckdose","Computer","Monitor"),4,24),new Arbeitsplatz(List.of("Steckdose","Computer","Monitor","LanKabel"),5,24));
-
+    List<Buchung> buchungen = List.of(new Buchung(LocalDate.now(), LocalTime.now(),LocalTime.now().plusHours(2),"Elon"));
 
 
 
@@ -45,8 +48,19 @@ public class AdminWebControllerTest {
     void test_3() throws Exception {
         when(buchungsService.alleArbeitsplaetze()).thenReturn(arbeitsplaetze);
         mockMvc.perform(get("/admin"))
-                .andExpect(model().attribute("arbeitsplaetze", arbeitsplaetze));
+                .andExpect(model().attribute("arbeitsplaetze", arbeitsplaetze))
+                .andExpect(content().string(containsString("Steckdose")));
     }
+    @Test
+    @DisplayName("Admin Seite fügt die Buchungen hinzu")
+    @WithMockOAuth2User(login = "Elon",roles = {"ADMIN","USER"})
+    void test_4() throws Exception {
+        when(buchungsService.alleBuchungen()).thenReturn(buchungen);
+        mockMvc.perform(get("/admin"))
+                .andExpect(model().attribute("alleBuchungen",buchungen ));
+    }
+
+
 
 
 }

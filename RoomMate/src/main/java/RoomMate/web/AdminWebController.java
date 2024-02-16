@@ -21,6 +21,7 @@ public class AdminWebController {
     @GetMapping()
     public String index(Model model){
         model.addAttribute("arbeitsplaetze",buchungsService.alleArbeitsplaetze());
+        model.addAttribute("alleBuchungen",buchungsService.alleBuchungen());
         return "adminFunktionen";
     }
 }
