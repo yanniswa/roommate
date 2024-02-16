@@ -1,0 +1,8 @@
+//Die Parameter durch das BuchungsForm ersetzen
+//Buchungen Anzeigen auf der Admin Seite
+//Ausrüstung zu den Räumen hinzufügen können
+//Buchungen löschen können
+//Den Zugriff über die URl nur auf gültige Eingaben zulassen, also nur für gültige
+Raumnummern etc.
+//Datenbanken einführen
+//
