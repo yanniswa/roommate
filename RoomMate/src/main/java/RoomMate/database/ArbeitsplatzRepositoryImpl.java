@@ -1,10 +1,15 @@
 package RoomMate.database;
 
 import RoomMate.domain.model.Arbeitsplatz;
+import RoomMate.domain.model.Buchung;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Repository
 public class ArbeitsplatzRepositoryImpl implements RoomMate.service.ArbeitsplatzRepository {
@@ -17,5 +22,12 @@ public class ArbeitsplatzRepositoryImpl implements RoomMate.service.Arbeitsplatz
 
     public Optional<Arbeitsplatz> getArbeitsplatzByID(int id){
         return arbeitsplaetze.stream().filter(e->e.getId()==id).findFirst();
+    }
+
+    public List<Buchung> getBuchungen(){
+        List<Buchung> buchungen = new ArrayList<>();
+        buchungen.add(new Buchung(LocalDate.of(2024,02,24), LocalTime.of(18,30), LocalTime.of(20,30), "tobi"));
+        return buchungen;
+        // Dummy Werte werden zurück gegeben
     }
 }
