@@ -8,14 +8,29 @@
 <body>
 
 <h1>RoomMate Admin Panel</h1>
+
+<h2>Arbeitsplatz hinzufügen</h2>
+<form action="post">
+    <label for="raumnummer">Raumnummer:</label>
+    <input type="number" id="raumnummer" name="raumnummer">
+    <p>Ausstattung:</p>
+    <input type="checkbox" id="ausstattung1" value="usbc">
+    <label for="ausstattung1">USBC</label> <br>
+    <button type="submit">
+        Abschicken
+    </button>
+</form>
+
+
+
 <h2>Arbeitsplatzübersicht</h2>
-<table border="1">
+<table class="table table-hover table-bordered">
     <thead>
     <tr>
         <th>ArbeitsplatzID</th>
         <th>Ausstattung</th>
         <th>Raumnummer</th>
-        <th></th>
+        <th>Aktionen</th>
     </tr>
     </thead>
     <tbody>
@@ -31,12 +46,17 @@
         <td>
             <button type="submit">
                 <a th:href="@{/admin/{arbeitsplatzId}(arbeitsplatzId=${arbeitsplatz.getId()})}">Ausstattung bearbeiten</a>
-            </button></td>
+            </button>
+
+            <button type="submit">
+                Arbeitsplatz löschen
+            </button>
+        </td>
     </tr>
     </tbody>
 </table>
 <h2>Buchungsübersicht</h2>
-<table border="1">
+<table class="table table-hover table-bordered">
     <thead>
     <tr>
         <th>BuchungsID</th>
