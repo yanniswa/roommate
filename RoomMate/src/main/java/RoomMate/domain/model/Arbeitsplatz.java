@@ -12,7 +12,7 @@ import java.util.List;
 
     private int Id;
     private List<Buchung> buchungen;
-    Room room;
+    private Room room;
     private List<String> ausstattung;
 
     public int getRaumnummer(){

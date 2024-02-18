@@ -7,7 +7,7 @@ import java.time.LocalTime;
 @Value
 public class Buchung {
 
-    int id=-1;
+    private int id=-1;
     private final LocalDate localDate;
     private final LocalTime anfang;
     private final LocalTime ende;

@@ -25,6 +25,13 @@ dependencies {
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
 
+    // Datenbank-Migration
+    implementation 'org.flywaydb:flyway-core'
+
+    // Datenbank
+    implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
+    runtimeOnly 'org.postgresql:postgresql'
+
 
 
     testImplementation 'com.tngtech.archunit:archunit:1.2.1'

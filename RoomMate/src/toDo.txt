@@ -1,5 +1,4 @@
 //Die Parameter durch das BuchungsForm ersetzen
-//Buchungen Anzeigen auf der Admin Seite
 //Ausrüstung zu den Räumen hinzufügen können
 //Buchungen löschen können
 //Den Zugriff über die URl nur auf gültige Eingaben zulassen, also nur für gültige
@@ -9,3 +8,5 @@ Raumnummern etc.
 //Die Seiten mit CSS schöner aussehene lassen
 //Benutzer Objekt einführen
 //Eventuell zu den Buchungen den Raum und Arbeitsplatz anzeigen --> Raumnummer und ArbeitsplatzID müsste in der BuchungsKlasse gespeichert werden
+//Eine Success Meldung einführen bei Erfolgreicher Buchung
+//Success Meldung einführen beim erfolgreichen Löschen von Buchungen oder Bearbeiten der Arbeitsplätze

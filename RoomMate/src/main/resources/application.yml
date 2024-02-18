@@ -1,6 +1,10 @@
 server:
   port: 8080
 spring:
+  datasource:
+    password: ${POSTGRES_PASSWORD}
+    username: ${POSTGRES_USER}
+    url: jdbc:postgresql://localhost:5432/postgres
   security:
     oauth2:
       client:
@@ -13,3 +17,4 @@ spring:
 RoomMate:
   rollen:
     admin: yanniswa, kruegertobias
+
