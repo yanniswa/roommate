@@ -11,6 +11,8 @@ public interface ArbeitsplatzRepository {
     List<Arbeitsplatz> getArbeitsplaetze();
     Optional<Arbeitsplatz> getArbeitsplatzByID(int id);
 
+    Arbeitsplatz save(Arbeitsplatz arbeitsplatz);
+
     List<Buchung> getBuchungen();
 
 

@@ -30,6 +30,11 @@ public class ArbeitsplatzRepositoryImpl implements RoomMate.service.Arbeitsplatz
         return repository.findById(id);
     }
 
+    @Override
+    public Arbeitsplatz save(Arbeitsplatz arbeitsplatz) {
+        return repository.save(arbeitsplatz);
+    }
+
     public List<Buchung> getBuchungen(){
         List<Buchung> buchungen = new ArrayList<>();
         List<Arbeitsplatz> allArbeitsplaetze = this.getArbeitsplaetze();

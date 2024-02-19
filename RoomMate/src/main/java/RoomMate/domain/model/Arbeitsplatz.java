@@ -25,10 +25,11 @@ import java.util.*;
     }
 
     @PersistenceCreator
-    public Arbeitsplatz(Set<String> ausstattung,int Id) {
+    public Arbeitsplatz(Set<String> ausstattung,int Id,Room room) {
         this.Id =Id;
         this.ausstattung = ausstattung;
         buchungen = new ArrayList<>();
+        this.room = room;
     }
 
     public Arbeitsplatz(Set<String> ausstattung,int Id,int roomNumber) {
@@ -36,6 +37,11 @@ import java.util.*;
         this.ausstattung = ausstattung;
         buchungen = new ArrayList<>();
         this.room = new Room(roomNumber);
+    }
+    public Arbeitsplatz(int roomNumber,Set<String> ausstattung){
+        this.ausstattung = ausstattung;
+        this.room = new Room(roomNumber);
+        buchungen = new ArrayList<>();
     }
 
     public void setRoom(Room room){

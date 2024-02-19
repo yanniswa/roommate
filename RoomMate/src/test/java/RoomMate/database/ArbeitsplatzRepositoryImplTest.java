@@ -72,5 +72,17 @@ class ArbeitsplatzRepositoryImplTest {
         assertThat(buchungen).hasSize(5).containsExactlyInAnyOrderElementsOf(kontrollBuchung);
     }
 
+    @Test
+    @DisplayName("Arbeitsplätze können gespeichert werden")
+    void test_5() {
+        Arbeitsplatz arbeitsplatz = new Arbeitsplatz(24,Set.of("Stuhl"));
+        arbeitsplatz.addBuchung(LocalTime.of(2,0),LocalTime.of(3,0),LocalDate.now().plusDays(1),"Elon");
+
+        Arbeitsplatz saved = repository.save(arbeitsplatz);
+        Optional<Arbeitsplatz> geladen = repository.getArbeitsplatzByID(saved.getId());
+        assertThat(geladen.map(Arbeitsplatz::getId).orElseThrow()).isEqualTo(saved.getId());
+        assertThat(geladen.map(Arbeitsplatz::getAusstattung).orElseThrow()).containsExactly("Stuhl");
+        assertThat(geladen.map(Arbeitsplatz::getBuchungen).orElseThrow()).hasSize(1);
+    }
 
 }
