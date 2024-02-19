@@ -130,7 +130,7 @@ import java.util.*;
      private Buchung getMin(List<Buchung> liste){
          liste.stream()
                  .min(Comparator.comparing(Buchung::getAnfang));
-         return liste.getFirst();
+         return liste.get(0);
      }
 
     public List<Zeitslot> freieZeitslots(LocalDate datum){
