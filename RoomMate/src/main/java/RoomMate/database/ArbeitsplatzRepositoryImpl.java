@@ -2,6 +2,7 @@ package RoomMate.database;
 
 import RoomMate.domain.model.Arbeitsplatz;
 import RoomMate.domain.model.Buchung;
+
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
@@ -9,15 +10,22 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
+import java.util.Set;
 
 @Repository
 public class ArbeitsplatzRepositoryImpl implements RoomMate.service.ArbeitsplatzRepository {
-    List<Arbeitsplatz> arbeitsplaetze =  List.of(new Arbeitsplatz(List.of("USB","Computer"),1,25),new Arbeitsplatz(List.of("Steckdose","Computer"),2,25),
-    new Arbeitsplatz(List.of("USB","Computer"),3,24),new Arbeitsplatz(List.of("Steckdose","Computer","Monitor"),4,24),new Arbeitsplatz(List.of("Steckdose","Computer","Monitor","LanKabel"),5,24));
 
+    private final SpringDataArbeitsplatzRepository repository;
+
+    List<Arbeitsplatz> arbeitsplaetze =  List.of(new Arbeitsplatz(Set.of("USB","Computer"),1,25),new Arbeitsplatz(Set.of("Steckdose","Computer"),2,25),
+    new Arbeitsplatz(Set.of("USB","Computer"),3,24),new Arbeitsplatz(Set.of("Steckdose","Computer","Monitor"),4,24),new Arbeitsplatz(Set.of("Steckdose","Computer","Monitor","LanKabel"),5,24));
+
+    public ArbeitsplatzRepositoryImpl(SpringDataArbeitsplatzRepository repository) {
+        this.repository = repository;
+    }
+    @Override
     public List<Arbeitsplatz> getArbeitsplaetze(){
-        return arbeitsplaetze;
+        return repository.findAll();
     }
 
     public Optional<Arbeitsplatz> getArbeitsplatzByID(int id){

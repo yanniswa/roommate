@@ -18,6 +18,7 @@ import org.springframework.test.web.servlet.MvcResult;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
+import java.util.Set;
 
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.CoreMatchers.not;
@@ -36,8 +37,8 @@ public class AdminWebControllerTest {
     MockMvc mockMvc;
     @MockBean
     BuchungsService buchungsService;
-    List<Arbeitsplatz> arbeitsplaetze =  List.of(new Arbeitsplatz(List.of("USB","Computer"),1,25),new Arbeitsplatz(List.of("Steckdose","Computer"),2,25),
-            new Arbeitsplatz(List.of("USB","Computer"),3,24),new Arbeitsplatz(List.of("Steckdose","Computer","Monitor"),4,24),new Arbeitsplatz(List.of("Steckdose","Computer","Monitor","LanKabel"),5,24));
+    List<Arbeitsplatz> arbeitsplaetze =  List.of(new Arbeitsplatz(Set.of("USB","Computer"),1,25),new Arbeitsplatz(Set.of("Steckdose","Computer"),2,25),
+            new Arbeitsplatz(Set.of("USB","Computer"),3,24),new Arbeitsplatz(Set.of("Steckdose","Computer","Monitor"),4,24),new Arbeitsplatz(Set.of("Steckdose","Computer","Monitor","LanKabel"),5,24));
     List<Buchung> buchungen = List.of(new Buchung(LocalDate.now(), LocalTime.now(),LocalTime.now().plusHours(2),"Elon"));
 
 

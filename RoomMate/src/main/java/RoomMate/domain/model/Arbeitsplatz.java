@@ -1,30 +1,47 @@
 package RoomMate.domain.model;
 
 import RoomMate.annotations.AggregateRoot;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.PersistenceCreator;
+import org.springframework.data.relational.core.mapping.MappedCollection;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Set;
+
 @AggregateRoot
  public class Arbeitsplatz {
 
-    private int Id;
+    @Id
+    private Integer Id;
     private List<Buchung> buchungen;
+
+    @MappedCollection
     private Room room;
-    private List<String> ausstattung;
+    private Set<String> ausstattung;
 
     public int getRaumnummer(){
         return room.getRoomnumber();
     }
 
-
-    public Arbeitsplatz(List<String> ausstattung,int Id, int  roomNumber) {
+    @PersistenceCreator
+    public Arbeitsplatz(Set<String> ausstattung,int Id) {
         this.Id =Id;
         this.ausstattung = ausstattung;
         buchungen = new ArrayList<>();
-        this.room= new Room(roomNumber);
+    }
+
+    public Arbeitsplatz(Set<String> ausstattung,int Id,int roomNumber) {
+        this.Id =Id;
+        this.ausstattung = ausstattung;
+        buchungen = new ArrayList<>();
+        this.room = new Room(roomNumber);
+    }
+    public void setRoom(Room room){
+        this.room = room;
     }
 
     public List<Buchung> getBuchungen() {
@@ -42,6 +59,9 @@ import java.util.List;
 
     public boolean addBuchung(LocalTime anfang, LocalTime ende,
                               LocalDate datum, String benutzer){
+        if(anfang.isAfter(ende)){
+            return false;
+        }
         boolean keineBuchungenImZeitraum = buchungen.stream().filter(e -> e.getLocalDate().isEqual(datum))
                 .filter(e -> e.getAnfang().isBefore(anfang) && e.getEnde().isAfter(anfang) ||
                         e.getAnfang().isAfter(anfang)&& e.getEnde().isAfter(anfang) ||
@@ -70,8 +90,8 @@ import java.util.List;
         return new ArrayList<>(ausstattung);
     }
 
-    public void addAusstattung(List<String> ausstattung) {
-        this.ausstattung = ausstattung;
+    public void addAusstattung(Set<String> ausstattung) {
+        this.ausstattung.addAll(ausstattung);
     }
 
      private List<Buchung> isFree(List<Buchung> buchungen, LocalTime zeit){
