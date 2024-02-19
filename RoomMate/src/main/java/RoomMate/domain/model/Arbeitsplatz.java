@@ -7,10 +7,7 @@ import org.springframework.data.relational.core.mapping.MappedCollection;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @AggregateRoot
  public class Arbeitsplatz {
@@ -40,6 +37,7 @@ import java.util.Set;
         buchungen = new ArrayList<>();
         this.room = new Room(roomNumber);
     }
+
     public void setRoom(Room room){
         this.room = room;
     }
@@ -81,7 +79,7 @@ import java.util.Set;
         } else if (LocalTime.now().isAfter(anfang)&& datum.isEqual(LocalDate.now())) {
             return false;
         }
-        buchungen.add(new Buchung(datum,anfang,ende,benutzer));
+        buchungen.add(new Buchung(datum,anfang,ende,benutzer,1));
         return true;
     }
     //public void addBuchung(List<Buchung> buchung){buchungen.addAll(buchung);}
@@ -130,5 +128,18 @@ import java.util.Set;
         }
         freieSlot.add(new Zeitslot(anfang,previous));
         return freieSlot;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Arbeitsplatz that = (Arbeitsplatz) o;
+        return Objects.equals(Id, that.Id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(Id);
     }
 }

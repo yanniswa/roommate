@@ -17,8 +17,6 @@ public class ArbeitsplatzRepositoryImpl implements RoomMate.service.Arbeitsplatz
 
     private final SpringDataArbeitsplatzRepository repository;
 
-    List<Arbeitsplatz> arbeitsplaetze =  List.of(new Arbeitsplatz(Set.of("USB","Computer"),1,25),new Arbeitsplatz(Set.of("Steckdose","Computer"),2,25),
-    new Arbeitsplatz(Set.of("USB","Computer"),3,24),new Arbeitsplatz(Set.of("Steckdose","Computer","Monitor"),4,24),new Arbeitsplatz(Set.of("Steckdose","Computer","Monitor","LanKabel"),5,24));
 
     public ArbeitsplatzRepositoryImpl(SpringDataArbeitsplatzRepository repository) {
         this.repository = repository;
@@ -29,14 +27,14 @@ public class ArbeitsplatzRepositoryImpl implements RoomMate.service.Arbeitsplatz
     }
 
     public Optional<Arbeitsplatz> getArbeitsplatzByID(int id){
-        return arbeitsplaetze.stream().filter(e->e.getId()==id).findFirst();
+        return repository.findById(id);
     }
 
     public List<Buchung> getBuchungen(){
         List<Buchung> buchungen = new ArrayList<>();
-        buchungen.add(new Buchung(LocalDate.of(2024,02,24), LocalTime.of(18,30), LocalTime.of(20,30), "tobi"));
-        arbeitsplaetze.forEach(e->buchungen.addAll(e.getBuchungen()));
+        List<Arbeitsplatz> allArbeitsplaetze = this.getArbeitsplaetze();
+        allArbeitsplaetze.forEach(e->buchungen.addAll(e.getBuchungen()));
         return buchungen;
-        // Dummy Werte werden zurück gegeben
+
     }
 }
