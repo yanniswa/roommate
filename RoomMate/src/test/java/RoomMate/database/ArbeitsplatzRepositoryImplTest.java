@@ -45,16 +45,19 @@ class ArbeitsplatzRepositoryImplTest {
         List<Arbeitsplatz> all = repository.getArbeitsplaetze();
         assertThat(all).isEmpty();
     }
-
+    private int vorhandeneID(){
+        Arbeitsplatz first = repository.getArbeitsplaetze().getFirst();
+        return first.getId();
+    }
     @Test
     @DisplayName("FindById gibt richtigen Arbeitsplatz zurück")
     @Sql("findall.sql")
     void test_3() {
-        Optional<Arbeitsplatz> arbeitsplatzByID = repository.getArbeitsplatzByID(1);
+        Optional<Arbeitsplatz> arbeitsplatzByID = repository.getArbeitsplatzByID(vorhandeneID());
 
 
         assertThat(arbeitsplatzByID).isNotEmpty();
-        assertThat(arbeitsplatzByID.get()).isEqualTo(new Arbeitsplatz(Set.of("Stuhl", "Tisch", "Lampe"),1,25));
+        assertThat(arbeitsplatzByID.get()).isEqualTo(new Arbeitsplatz(Set.of("Stuhl", "Tisch", "Lampe"),vorhandeneID(),25));
     }
 
     @Test
