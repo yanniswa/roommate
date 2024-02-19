@@ -40,7 +40,10 @@ public class BuchungsService {
     }
 
     public List<Buchung> alleBuchungen(){
-        return repository.getBuchungen();
+        List<Arbeitsplatz> arbeitsplaetze = repository.getArbeitsplaetze();
+        List<Buchung> buchungen = new ArrayList<>();
+        arbeitsplaetze.forEach(e->buchungen.addAll(e.getBuchungen()));
+        return buchungen;
     }
 
 }

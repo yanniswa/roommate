@@ -13,7 +13,7 @@ public interface ArbeitsplatzRepository {
 
     Arbeitsplatz save(Arbeitsplatz arbeitsplatz);
 
-    List<Buchung> getBuchungen();
+ ;
 
 
 }

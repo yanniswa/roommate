@@ -1,16 +1,11 @@
 package RoomMate.database;
 
-import RoomMate.domain.model.Arbeitsplatz;
-import RoomMate.domain.model.Buchung;
-
 import org.springframework.stereotype.Repository;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
+import java.util.stream.Collectors;
 
 @Repository
 public class ArbeitsplatzRepositoryImpl implements RoomMate.service.ArbeitsplatzRepository {
@@ -21,25 +16,50 @@ public class ArbeitsplatzRepositoryImpl implements RoomMate.service.Arbeitsplatz
     public ArbeitsplatzRepositoryImpl(SpringDataArbeitsplatzRepository repository) {
         this.repository = repository;
     }
+
+    private RoomMate.domain.model.Arbeitsplatz convertArbeitsplatz(Arbeitsplatz arbeitsplatz){
+        RoomMate.domain.model.Arbeitsplatz result = new RoomMate.domain.model.Arbeitsplatz(arbeitsplatz.ausstattung(), arbeitsplatz.Id(),convertRoom(arbeitsplatz.room()));
+        arbeitsplatz.buchungen().forEach(d->result.addBuchung(convertBuchung(d)));
+        return result;
+    }
+    private RoomMate.domain.model.Buchung convertBuchung(Buchung buchung){
+        return new RoomMate.domain.model.Buchung(buchung.localDate(), buchung.anfang(), buchung.ende(), buchung.benutzer(), buchung.id());
+    }
+    private RoomMate.domain.model.Room convertRoom(Room room){
+        return new RoomMate.domain.model.Room(room.roomnumber());
+    }
     @Override
-    public List<Arbeitsplatz> getArbeitsplaetze(){
-        return repository.findAll();
+    public List<RoomMate.domain.model.Arbeitsplatz> getArbeitsplaetze(){
+        List<Arbeitsplatz> all = repository.findAll();
+        return all.stream().map(this::convertArbeitsplatz).toList();
+
     }
 
-    public Optional<Arbeitsplatz> getArbeitsplatzByID(int id){
-        return repository.findById(id);
+    public Optional<RoomMate.domain.model.Arbeitsplatz> getArbeitsplatzByID(int id){
+        return repository.findById(id).map(this::convertArbeitsplatz);
+    }
+    private Buchung extractBuchung(RoomMate.domain.model.Buchung buchung){
+        return new Buchung(buchung.getId(), buchung.getLocalDate(),buchung.getAnfang(),buchung.getEnde(),buchung.getBenutzer());
+    }
+    private Room extractRoom(RoomMate.domain.model.Room room){
+        return new Room(room.getRoomnumber());
     }
 
     @Override
-    public Arbeitsplatz save(Arbeitsplatz arbeitsplatz) {
-        return repository.save(arbeitsplatz);
-    }
+    public RoomMate.domain.model.Arbeitsplatz save(RoomMate.domain.model.Arbeitsplatz arbeitsplatz) {
+        List<Buchung> buchungen = arbeitsplatz.getBuchungen().stream().map(this::extractBuchung).toList();
+        Room room = new Room(arbeitsplatz.getRaumnummer());
+        Arbeitsplatz arbeitsplatzDTO = new Arbeitsplatz(arbeitsplatz.getId(), buchungen, room, arbeitsplatz.getAusstattung().stream().collect(Collectors.toSet()));
+        Arbeitsplatz save = repository.save(arbeitsplatzDTO);
+        return convertArbeitsplatz(save);
 
-    public List<Buchung> getBuchungen(){
-        List<Buchung> buchungen = new ArrayList<>();
-        List<Arbeitsplatz> allArbeitsplaetze = this.getArbeitsplaetze();
+    }
+    /**
+    public List<RoomMate.domain.model.Buchung> getBuchungen(){
+        List<RoomMate.domain.model.Buchung> buchungen = new ArrayList<>();
+        List<RoomMate.domain.model.Arbeitsplatz> allArbeitsplaetze = this.getArbeitsplaetze();
         allArbeitsplaetze.forEach(e->buchungen.addAll(e.getBuchungen()));
         return buchungen;
 
-    }
+    }**/
 }

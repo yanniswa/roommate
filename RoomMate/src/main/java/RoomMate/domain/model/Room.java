@@ -3,8 +3,8 @@ package RoomMate.domain.model;
 import RoomMate.annotations.Entity;
 
 @Entity
-class Room {
-    private int roomnumber;
+public class Room {
+    private final int roomnumber;
 
     public Room(int roomnumber) {
         this.roomnumber = roomnumber;

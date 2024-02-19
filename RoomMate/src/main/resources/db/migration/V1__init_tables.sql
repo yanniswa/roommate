@@ -4,7 +4,7 @@ create table arbeitsplatz (
 );
 
 create table room(
-    arbeitsplatz integer primary key,
+    arbeitsplatz integer,
     roomnumber integer,
     foreign key (arbeitsplatz) references arbeitsplatz(id)
 );

@@ -12,11 +12,11 @@ import java.util.*;
 @AggregateRoot
  public class Arbeitsplatz {
 
-    @Id
+
     private Integer Id;
     private List<Buchung> buchungen;
 
-    @MappedCollection
+
     private Room room;
     private Set<String> ausstattung;
 
@@ -52,7 +52,7 @@ import java.util.*;
         return buchungen;
     }
 
-    public int getId() {
+    public Integer getId() {
         return Id;
     }
 
@@ -86,6 +86,32 @@ import java.util.*;
             return false;
         }
         buchungen.add(new Buchung(datum,anfang,ende,benutzer,1));
+        return true;
+    }
+    public boolean addBuchung(Buchung buchung){
+        if(buchung.getAnfang().isAfter(buchung.getEnde())){
+            return false;
+        }
+        boolean keineBuchungenImZeitraum = buchungen.stream().filter(e -> e.getLocalDate().isEqual(buchung.getLocalDate()))
+                .filter(e -> e.getAnfang().isBefore(buchung.getAnfang()) && e.getEnde().isAfter(buchung.getAnfang()) ||
+                        e.getAnfang().isAfter(buchung.getAnfang())&& e.getEnde().isAfter(buchung.getAnfang()) ||
+                        e.getAnfang().equals(buchung.getAnfang()) || e.getEnde().equals(buchung.getAnfang())||
+                        e.getAnfang().equals(buchung.getEnde()) || e.getEnde().equals(buchung.getEnde()))
+                .filter(e -> e.getAnfang().isBefore(buchung.getEnde()) && e.getEnde().isAfter(buchung.getEnde())||
+                        e.getAnfang().isBefore(buchung.getEnde()) && e.getEnde().isBefore(buchung.getEnde())||
+                        e.getAnfang().equals(buchung.getEnde()) || e.getEnde().equals(buchung.getEnde())||
+                        e.getAnfang().equals(buchung.getAnfang()) || e.getEnde().equals(buchung.getAnfang()))
+                .toList().isEmpty();
+
+        if(buchung.getLocalDate().isBefore(LocalDate.now())){
+            return false;
+        }
+        else if(!keineBuchungenImZeitraum){
+            return false;
+        } else if (LocalTime.now().isAfter(buchung.getAnfang())&& buchung.getLocalDate().isEqual(LocalDate.now())) {
+            return false;
+        }
+        buchungen.add(buchung);
         return true;
     }
     //public void addBuchung(List<Buchung> buchung){buchungen.addAll(buchung);}

@@ -1,6 +1,5 @@
 package RoomMate.database;
 
-import RoomMate.domain.model.Arbeitsplatz;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;

@@ -22,3 +22,7 @@ values ('2024-02-22', '08:00:00', '12:00:00', 'Elon',(select max(id) from arbeit
 insert into buchung (local_date, anfang, ende, benutzer, arbeitsplatz, arbeitsplatz_key)
 values ('2024-02-23', '09:30:00', '13:30:00', 'Elon', (select min(id) from arbeitsplatz ), 5);
 
+
+INSERT INTO room (arbeitsplatz, roomnumber) VALUES ((select id from arbeitsplatz where ausstattung like '%Stuhl%'), 101);
+INSERT INTO room (arbeitsplatz, roomnumber) VALUES ((select id from arbeitsplatz where ausstattung like '%Monitor%'), 101);
+INSERT INTO room (arbeitsplatz, roomnumber) VALUES ((select id from arbeitsplatz where ausstattung like '%Schreibtisch%'), 101);
