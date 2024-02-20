@@ -116,12 +116,12 @@ import java.util.*;
     }
     //public void addBuchung(List<Buchung> buchung){buchungen.addAll(buchung);}
 
-    public List<String> getAusstattung() {
-        return new ArrayList<>(ausstattung);
+    public Set<String> getAusstattung() {
+        return ausstattung;
     }
 
-    public void addAusstattung(Set<String> ausstattung) {
-        this.ausstattung.addAll(ausstattung);
+    public void addAusstattung(String ausstattung) {
+        this.ausstattung.add(ausstattung);
     }
 
      private List<Buchung> isFree(List<Buchung> buchungen, LocalTime zeit){

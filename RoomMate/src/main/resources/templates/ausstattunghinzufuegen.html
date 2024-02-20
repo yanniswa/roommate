@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ausstattung hinzufuegen</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+<body>
+    <h1>Ausstattung hinzufuegen</h1>
+    <form method="post">
+        <label for="ausstattung">Ausstattung:</label>
+        <input type="text" id="ausstattung" name="ausstattung"> <br>
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+        <button type="submit">Hinzufuegen</button>
+    </form>
+</body>
+</html>
