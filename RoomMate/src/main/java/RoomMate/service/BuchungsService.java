@@ -32,7 +32,9 @@ public class BuchungsService {
     public boolean addBuchungToArbeitsplatz(int platzID,LocalTime anfang, LocalTime ende,
                                             LocalDate datum, String benutzer){
         Arbeitsplatz arbeitsplatz = repository.getArbeitsplatzByID(platzID).get();
-        return arbeitsplatz.addBuchung(anfang, ende, datum, benutzer);
+        boolean f = arbeitsplatz.addBuchung(anfang, ende, datum, benutzer);
+        repository.save(arbeitsplatz);
+        return f;
     }
 
     public List<Arbeitsplatz> alleArbeitsplaetze(){
