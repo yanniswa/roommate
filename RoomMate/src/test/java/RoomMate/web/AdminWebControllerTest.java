@@ -39,7 +39,7 @@ public class AdminWebControllerTest {
     BuchungsService buchungsService;
     List<Arbeitsplatz> arbeitsplaetze =  List.of(new Arbeitsplatz(Set.of("USB","Computer"),1,25),new Arbeitsplatz(Set.of("Steckdose","Computer"),2,25),
             new Arbeitsplatz(Set.of("USB","Computer"),3,24),new Arbeitsplatz(Set.of("Steckdose","Computer","Monitor"),4,24),new Arbeitsplatz(Set.of("Steckdose","Computer","Monitor","LanKabel"),5,24));
-    List<Buchung> buchungen = List.of(new Buchung(LocalDate.now(), LocalTime.now(),LocalTime.now().plusHours(2),"Elon",1));
+    List<Buchung> buchungen = List.of(new Buchung(LocalDate.now(), LocalTime.now(),LocalTime.now().plusHours(2),"Elon",1,3));
 
 
 

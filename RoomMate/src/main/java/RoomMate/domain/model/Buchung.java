@@ -15,12 +15,15 @@ public class Buchung {
     private final LocalTime ende;
     private final String benutzer;
 
-    public Buchung(LocalDate localDate, LocalTime anfang, LocalTime ende, String benutzer, int id) {
+    private final Integer arbeitsplatzid;
+
+    public Buchung(LocalDate localDate, LocalTime anfang, LocalTime ende, String benutzer, int id,int arbeitsPlatzId) {
         this.id = id;
         this.localDate = localDate;
         this.anfang = anfang;
         this.ende = ende;
         this.benutzer = benutzer;
+        this.arbeitsplatzid = arbeitsPlatzId;
     }
 
     public LocalDate getLocalDate() {
@@ -43,6 +46,7 @@ public class Buchung {
         return benutzer;
     }
 
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -54,5 +58,9 @@ public class Buchung {
     @Override
     public int hashCode() {
         return Objects.hash(id);
+    }
+
+    public int getArbeitsplatzid() {
+        return arbeitsplatzid;
     }
 }

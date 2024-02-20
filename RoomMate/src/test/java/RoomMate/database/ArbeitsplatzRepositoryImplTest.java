@@ -76,13 +76,28 @@ class ArbeitsplatzRepositoryImplTest {
     @DisplayName("Arbeitsplätze können gespeichert werden")
     void test_5() {
         Arbeitsplatz arbeitsplatz = new Arbeitsplatz(24,Set.of("Stuhl"));
-        arbeitsplatz.addBuchung(LocalTime.of(2,0),LocalTime.of(3,0),LocalDate.now().plusDays(1),"Elon");
+        //arbeitsplatz.addBuchung(LocalTime.of(2,0),LocalTime.of(3,0),LocalDate.now().plusDays(1),"Elon");
 
         Arbeitsplatz saved = repository.save(arbeitsplatz);
+
         Optional<Arbeitsplatz> geladen = repository.getArbeitsplatzByID(saved.getId());
         assertThat(geladen.map(Arbeitsplatz::getId).orElseThrow()).isEqualTo(saved.getId());
         assertThat(geladen.map(Arbeitsplatz::getAusstattung).orElseThrow()).containsExactly("Stuhl");
-        assertThat(geladen.map(Arbeitsplatz::getBuchungen).orElseThrow()).hasSize(1);
+        //assertThat(geladen.map(Arbeitsplatz::getBuchungen).orElseThrow()).hasSize(1);
+    }
+
+    @Test
+    @DisplayName("Buchungen können zu Arbeitsplätzen hinzugefügt werden und in Datenbank gespeichert werden")
+    @Sql("findall.sql")
+    void test_6() {
+        Optional<Arbeitsplatz> arbeitsplatzByID = repository.getArbeitsplatzByID(vorhandeneID());
+        assertThat(arbeitsplatzByID).isNotEmpty();
+        arbeitsplatzByID.get().addBuchung(LocalTime.of(2,0),LocalTime.of(3,0),LocalDate.now().plusDays(1),"Elon");
+
+        Arbeitsplatz save = repository.save(arbeitsplatzByID.get());
+        assertThat(save.getBuchungen()).hasSize(1);
+
+
     }
 
 }

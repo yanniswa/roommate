@@ -1,10 +1,12 @@
 package RoomMate.database;
 
+import org.springframework.data.annotation.Transient;
+
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Objects;
 
-public record Buchung(int id, LocalDate localDate, LocalTime anfang, LocalTime ende, String  benutzer) {
+public record Buchung(int id, LocalDate localDate, LocalTime anfang, LocalTime ende, String  benutzer,@Transient Integer arbeitsplatz) {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
