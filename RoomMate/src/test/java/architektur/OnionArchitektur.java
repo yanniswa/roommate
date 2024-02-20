@@ -7,7 +7,7 @@ import com.tngtech.archunit.lang.ArchRule;
 
 import static com.tngtech.archunit.library.Architectures.onionArchitecture;
 @AnalyzeClasses(packagesOf = RoomMateApplication.class)
-public class onionArchitektur {
+public class OnionArchitektur {
 
         @ArchTest
         ArchRule rule = onionArchitecture()

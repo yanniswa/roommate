@@ -33,7 +33,7 @@ class arbeitsplatzTest {
     @DisplayName("Raum wird nicht hinzugefügt, wenn Zeitslot belegt ist ist ")
     void test_2() {
         Arbeitsplatz arbeitsplatz = new Arbeitsplatz(null,1,25);
-        boolean b = arbeitsplatz.addBuchung(LocalTime.of(0, 0)
+        arbeitsplatz.addBuchung(LocalTime.of(0, 0)
                 , LocalTime.of(2, 0), LocalDate.now(), "Test");
         boolean a = arbeitsplatz.addBuchung(LocalTime.of(0, 0)
                 , LocalTime.of(2, 0), LocalDate.now(), "Test");
@@ -105,7 +105,7 @@ class arbeitsplatzTest {
     @DisplayName("Wenn eine Buchung vorhanden ist, werden richtige Zeitslots berechnet")
     void test_9(){
         Arbeitsplatz arbeitsplatz = new Arbeitsplatz(null,1,25);
-        boolean b = arbeitsplatz.addBuchung(LocalTime.of(1, 0), LocalTime.of(2, 0), LocalDate.now().plusDays(1), "test");
+        arbeitsplatz.addBuchung(LocalTime.of(1, 0), LocalTime.of(2, 0), LocalDate.now().plusDays(1), "test");
 
         List<Zeitslot> zeitslots = arbeitsplatz.freieZeitslots(LocalDate.now().plusDays(1));
 

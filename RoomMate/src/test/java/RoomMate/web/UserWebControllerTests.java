@@ -57,7 +57,7 @@ public class UserWebControllerTests {
                 new Zeitslot(LocalTime.of(22, 0), LocalTime.of(23, 50)));
         when(buchungsService.freieZeitslot(LocalDate.now().plusDays(1),1)).thenReturn(zeitslots);
         when(buchungsService.addBuchungToArbeitsplatz(anyInt(),any(LocalTime.class),any(LocalTime.class),any(LocalDate.class),anyString())).thenReturn(false);
-        List<Zeitslot> neu = zeitslots;
+
 
         mvc.perform(post("/user/1")
                         .param("datum", LocalDate.now().plusDays(1).toString())
