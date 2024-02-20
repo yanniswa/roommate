@@ -8,6 +8,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.data.jdbc.DataJdbcTest;
+import org.springframework.jdbc.datasource.init.CannotReadScriptException;
 import org.springframework.test.context.jdbc.Sql;
 
 import java.time.LocalDate;
@@ -97,6 +98,19 @@ class ArbeitsplatzRepositoryImplTest {
         Arbeitsplatz save = repository.save(arbeitsplatzByID.get());
         assertThat(save.getBuchungen()).hasSize(1);
 
+    }
+
+    @Test
+    @DisplayName("Arbeitsplätze können gefunden werden auch wenn Buchungen schon in der Datenbank eingetragen sind")
+    @Sql("alleBuchungen.sql")
+    void test_7() {
+        assertDoesNotThrow(() -> repository.getArbeitsplaetze());
+    }
+
+    @Test
+    @DisplayName("Buchung kann hinzugefügt werden, wenn eine Buchung bereits existiert")
+    @Sql("alleBuchungen.sql")
+    void test_8() {
 
     }
 

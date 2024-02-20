@@ -6,7 +6,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Objects;
 
-public record Buchung(int id, LocalDate localDate, LocalTime anfang, LocalTime ende, String  benutzer,@Transient Integer arbeitsplatz) {
+public record Buchung(int id, LocalDate localDate, LocalTime anfang, LocalTime ende, String  benutzer,Integer arbeitsplatz) {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
