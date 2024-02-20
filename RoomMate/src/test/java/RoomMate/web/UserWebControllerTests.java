@@ -34,7 +34,7 @@ public class UserWebControllerTests {
     BuchungsService buchungsService;
 
     @Test
-    @DisplayName("Get Request auf /user funktioniert")
+    @DisplayName("Get Request auf /key funktioniert")
     @WithMockOAuth2User()
     void test_01() throws Exception{
         mvc.perform(get("/user"))
@@ -46,7 +46,7 @@ public class UserWebControllerTests {
     @WithMockOAuth2User()
     void test_02() throws Exception {
         mvc.perform(get("/user"))
-                .andExpect(view().name("user"));
+                .andExpect(view().name("key"));
     }
 
     @Test

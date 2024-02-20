@@ -7,13 +7,13 @@ import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.client.RestClientResponseException;
 import org.springframework.web.client.RestTemplate;
 
-import java.security.Key;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @RestController
@@ -22,8 +22,8 @@ public class EventController {
         this.buchungsService = buchungsService;
     }
 
-    private static record User(String id, String owner){}
-    private static record Room(String id, String raumnummer){}
+    private static record Key(String id, String owner){}
+    private static record Room(String id, String raum){}
     private BuchungsService buchungsService;
 
 
@@ -32,11 +32,11 @@ public class EventController {
         System.out.println("zugriff erhalten");
         List<Buchung> buchungen = buchungsService.alleBuchungen();
         RestTemplate restTemplate = new RestTemplate();
-        List<User> user = new ArrayList<>(restTemplate.exchange(
+        List<Key> keys = new ArrayList<>(restTemplate.exchange(
                 "http://localhost:3000/key",
                 HttpMethod.GET,
                 null,
-                new ParameterizedTypeReference<List<User>>() {
+                new ParameterizedTypeReference<List<Key>>() {
                 }).getBody());
         List<Room> rooms = new ArrayList<>(restTemplate.exchange(
                 "http://localhost:3000/room",
@@ -46,19 +46,24 @@ public class EventController {
                 }).getBody());
         List<Access> result = new ArrayList<>();
         for(Buchung buchung : buchungen){
-            Optional<User> userr = user.stream().filter(e -> e.owner.equals(buchung.getBenutzer())).findFirst();
-            if(userr.isEmpty()){}
+            Optional<Key> key = keys.stream().filter(e -> e.owner.equals(buchung.getBenutzer())).findFirst();
+            if(key.isEmpty()){}
             else{
                 int arbeitsplatzid = buchung.getArbeitsplatzid();
                 Arbeitsplatz arbeitsplatz = buchungsService.getArbeitsplatz(arbeitsplatzid);
-                Stream<Room> stream = rooms.stream().filter(e -> e.raumnummer.equals(arbeitsplatz.getRaumnummer()));
-                Room room = stream.findFirst().get();
-                result.add(new Access(userr.get().id, room.id));
+                System.out.println(arbeitsplatzid);
+                Stream<Room> stream = rooms.stream().filter(e -> Integer.parseInt(e.raum)==arbeitsplatz.getRaumnummer());
+                List<Room> list = stream.toList();
+                System.out.println(list);
+                Room room = list.getFirst();
+                result.add(new Access(key.get().id(), room.id()));
             }
 
         }
-
-        return result;
+        System.out.println(result.stream().collect(Collectors.toSet()));
+        Set<Access> collect = result.stream().collect(Collectors.toSet());
+        return collect.stream().toList();
     }
-
+//Der neue Schlüssel hat die ID: 5b53a9b5-f95e-45a9-947d-94a50b99eefb
+//Der neue Raum hat die ID: 86e7a9f7-3700-4893-b8be-1fed9a27d85d
 }

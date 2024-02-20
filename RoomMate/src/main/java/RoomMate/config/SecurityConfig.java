@@ -27,7 +27,7 @@ public class SecurityConfig {
         @Bean
         public SecurityFilterChain configure(HttpSecurity chainBuilder) throws Exception {
             chainBuilder.authorizeRequests(a-> a
-                            .requestMatchers("/css/*").permitAll()
+                            .requestMatchers("/css/*","/api/access").permitAll()
                             .anyRequest().authenticated()
                     )
                     .logout(c->c.logoutSuccessUrl("/"))
