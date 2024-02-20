@@ -1,32 +1,22 @@
-RoomMate Raum Reservierungssystem
-Beschreibung
-Das RoomMate Raum Reservierungssystem ermöglicht es Benutzern, Arbeitsplätze in Räumen für bestimmte Zeiträume zu buchen. Jeder Arbeitsplatz verfügt über verschiedene Ausstattungen wie Monitor, Dockingstation, Maus, usw. Bei der Suchanfrage können Benutzer die gewünschte Ausstattung angeben, und das System zeigt verfügbare Arbeitsplätze an.
+# RoomMate
 
-Admin Funktionen
-Administratoren haben erweiterte Funktionen wie das Hinzufügen oder Entfernen von Ausstattungen für Arbeitsplätze und Räume.
-Sie können auch Arbeitsplätze und Räume erstellen oder löschen.
-Admins können alle Buchungen von Usern sehen
-Zusätzlich können Administratoren Buchungen stornieren(löschen) und Arbeitsplätze für einen bestimmten Zeitraum sperren.
-Die User müssen sich mit OAuth2 authentifizieren. Jeder User sieht nur seine eigenen Buchungen.
+Hier sollte ihr Projekt entstehen.
 
+1. Einführung&Ziele:
+- Was ist RoomMate? RoomMate ist ein Portal, über welches der Platzmangel an der Heinrich-Heine-Universität
+geregelt werden soll. Ziel ist eine möglichst hohe Funktionalität der grundlegenden Funktionen(Buchen) und 
+nicht möglichst viele Features einzubauen.
+- Wesentliche Features: Buchen von Arbeitsplätzen(User), hinzufügen von Arbeitsplätzen(Admin), löschen von Arbeitsplätzen
+und Buchungen(Admin), Bearbeiten/Hinzufügen von Arbeitsplätzen(Admin)
+- Qualitätsziele: hohe Sicherheit der Admin Rollen, kein Ausfall des System länger als eine Stunde, Schutz der Kundendaten
 
+2. Randbedingungen
+- Technische Randbedingungen: moderate Hardwareausstattung, implementiert in java, betrieben auf Linux/MacOs 
+Betriebssystemen
+- Organisatorische Randbedingungen: Team: Yannis Wagner, Tobias Krüger
+3. Kontextabgrenzung
 
-Technologie Stack
-Java Version 21
-Gradle 8.5
-Spring Boot 3.1
-Docker
-PostgreSQL
-OAuthApp in Github für die Anmeldung mit Github
-Flyway für die Datenbankmigration
-Thymeleaf, CSS Bootstrap, HTML
-Installation
-Klone das Repository: git clone https://github.com/dein-username/roommate.git
+![img.png](img.png)
 
-Wechsle in das Projektverzeichnis: cd roommate
-
-Starten Sie die docker-compose.yaml damit der Container geöffnet ist.
-
-Verbinden Sie sich mit der Datenbank und nutzen Sie die Daten von application.yaml um Datenbankzugriff zu bekommen
-
-Führe die Anwendung mit Gradle aus: ./gradlew bootRun
+- User: nutzt RoomMate um einen Arbeitsplatz zu buchen
+- Admin: erstellt Arbeitsplätze und bearbeitet diese, kann Buchungen und Arbeitsplätze löschen
