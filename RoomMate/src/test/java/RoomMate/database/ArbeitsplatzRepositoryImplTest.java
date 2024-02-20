@@ -109,8 +109,12 @@ class ArbeitsplatzRepositoryImplTest {
 
     @Test
     @DisplayName("Buchung kann hinzugefügt werden, wenn eine Buchung bereits existiert")
-    @Sql("alleBuchungen.sql")
     void test_8() {
+        Arbeitsplatz arbeitsplatz = new Arbeitsplatz(24,Set.of("Stuhl"));
+        Arbeitsplatz saved = repository.save(arbeitsplatz);
+        saved.addBuchung(LocalTime.of(2,0),LocalTime.of(3,0),LocalDate.now().plusDays(1),"Elon");
+        saved.addBuchung(LocalTime.of(12,0),LocalTime.of(13,0),LocalDate.now().plusDays(1),"Elon");
+        assertDoesNotThrow(()->repository.save(saved));
 
     }
 

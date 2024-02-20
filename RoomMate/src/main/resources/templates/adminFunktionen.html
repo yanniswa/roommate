@@ -60,7 +60,7 @@
 <table class="table table-hover table-bordered">
     <thead>
     <tr>
-        <th>BuchungsID</th>
+        <th>ArbeitsplatzID</th>
         <th>Benutzer</th>
         <th>Datum</th>
         <th>Uhrzeit</th>
@@ -70,7 +70,7 @@
     <tbody>
     <!-- Loop durch die Raumobjekte im Modell -->
     <tr th:each="buchung : ${alleBuchungen}">
-        <td th:text="${buchung.getId()}"></td>
+        <td th:text="${buchung.getArbeitsplatzid()}"></td>
         <td>
             <ul>
                 <li th:text="${buchung.getBenutzer()}"></li>

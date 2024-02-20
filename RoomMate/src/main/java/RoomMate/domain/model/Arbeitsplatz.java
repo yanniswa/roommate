@@ -85,7 +85,7 @@ import java.util.*;
         } else if (LocalTime.now().isAfter(anfang)&& datum.isEqual(LocalDate.now())) {
             return false;
         }
-        buchungen.add(new Buchung(datum,anfang,ende,benutzer,1,this.Id));
+        buchungen.add(new Buchung(datum,anfang,ende,benutzer,this.Id));
         return true;
     }
     public boolean addBuchung(Buchung buchung){

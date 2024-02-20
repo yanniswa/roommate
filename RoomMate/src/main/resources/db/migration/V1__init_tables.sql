@@ -11,7 +11,6 @@ create table room(
 
 
 create table buchung(
-    id serial primary key,
     local_date date,
     anfang time,
     ende time,

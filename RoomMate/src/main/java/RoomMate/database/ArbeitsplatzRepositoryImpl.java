@@ -22,7 +22,7 @@ public class ArbeitsplatzRepositoryImpl implements RoomMate.service.Arbeitsplatz
         return result;
     }
     private RoomMate.domain.model.Buchung convertBuchung(Buchung buchung){
-        return new RoomMate.domain.model.Buchung(buchung.localDate(), buchung.anfang(), buchung.ende(), buchung.benutzer(), buchung.id(), buchung.arbeitsplatz());
+        return new RoomMate.domain.model.Buchung(buchung.localDate(), buchung.anfang(), buchung.ende(), buchung.benutzer(),buchung.arbeitsplatz());
     }
     private RoomMate.domain.model.Room convertRoom(Room room){
         return new RoomMate.domain.model.Room(room.roomnumber());
@@ -38,7 +38,7 @@ public class ArbeitsplatzRepositoryImpl implements RoomMate.service.Arbeitsplatz
         return repository.findById(id).map(this::convertArbeitsplatz);
     }
     private Buchung extractBuchung(RoomMate.domain.model.Buchung buchung){
-        return new Buchung(buchung.getId(), buchung.getLocalDate(),buchung.getAnfang(),buchung.getEnde(),buchung.getBenutzer(), buchung.getArbeitsplatzid());
+        return new Buchung(buchung.getLocalDate(),buchung.getAnfang(),buchung.getEnde(),buchung.getBenutzer(), buchung.getArbeitsplatzid());
     }
     private Room extractRoom(RoomMate.domain.model.Room room){
         return new Room(room.getRoomnumber());

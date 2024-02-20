@@ -29,6 +29,7 @@ public class EventController {
 
     @GetMapping("/api/access")
     public List<Access> apiAcces(){
+        System.out.println("zugriff erhalten");
         List<Buchung> buchungen = buchungsService.alleBuchungen();
         RestTemplate restTemplate = new RestTemplate();
         List<User> user = new ArrayList<>(restTemplate.exchange(
