@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ausstattung hinzufuegen</title>
+</head>
+<body>
+    <h1>Ausstattung hinzufuegen</h1>
+    <form method="post">
+        <label for="ausstattung">Ausstattung:</label>
+        <input type="text" id="ausstattung" name="ausstattung"> <br>
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+        <button type="submit">Hinzufuegen</button>
+    </form>
+</body>
+</html>

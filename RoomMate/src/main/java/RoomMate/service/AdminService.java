@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 @Service
@@ -21,5 +22,12 @@ public class AdminService {
         Arbeitsplatz arbeitsplatz = new Arbeitsplatz(raumnummer, ausstattung);
         Arbeitsplatz gespeicherterArbeitsplatz = repository.save(arbeitsplatz);
         return gespeicherterArbeitsplatz;
+    }
+
+    public void addAusstattung(int arbeitsplatzid, String ausstattung){
+        if(ausstattung == null || ausstattung.isBlank()) { return; }
+        Optional<Arbeitsplatz> arbeitsplatz = repository.getArbeitsplatzByID(arbeitsplatzid);
+        arbeitsplatz.get().addAusstattung(ausstattung);
+        repository.save(arbeitsplatz.get());
     }
 }
