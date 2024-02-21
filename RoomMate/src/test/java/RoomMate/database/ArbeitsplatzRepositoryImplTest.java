@@ -1,14 +1,12 @@
 package RoomMate.database;
 
 import RoomMate.domain.model.Arbeitsplatz;
-import RoomMate.domain.model.Buchung;
 import RoomMate.service.ArbeitsplatzRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.data.jdbc.DataJdbcTest;
-import org.springframework.jdbc.datasource.init.CannotReadScriptException;
 import org.springframework.test.context.jdbc.Sql;
 
 import java.time.LocalDate;
@@ -28,6 +26,8 @@ class ArbeitsplatzRepositoryImplTest {
     SpringDataArbeitsplatzRepository dataRepository;
 
     ArbeitsplatzRepository repository;
+
+
 
     @BeforeEach
     void setup(){repository = new ArbeitsplatzRepositoryImpl(dataRepository);}
@@ -113,8 +113,10 @@ class ArbeitsplatzRepositoryImplTest {
         Arbeitsplatz arbeitsplatz = new Arbeitsplatz(24,Set.of("Stuhl"));
         Arbeitsplatz saved = repository.save(arbeitsplatz);
         saved.addBuchung(LocalTime.of(2,0),LocalTime.of(3,0),LocalDate.now().plusDays(1),"Elon");
+        assertDoesNotThrow(()-> repository.save(saved));
         saved.addBuchung(LocalTime.of(12,0),LocalTime.of(13,0),LocalDate.now().plusDays(1),"Elon");
         assertDoesNotThrow(()->repository.save(saved));
+
 
     }
 

@@ -6,27 +6,36 @@ import org.springframework.data.annotation.PersistenceCreator;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Objects;
+import java.util.UUID;
 
 @Value
 public class Buchung {
 
-
+    private UUID id;
     private final LocalDate localDate;
     private final LocalTime anfang;
     private final LocalTime ende;
-    private final String benutzer;
+    private final Benutzer benutzer;
 
     private final Integer arbeitsplatzid;
-    @PersistenceCreator
-    public Buchung(LocalDate localDate, LocalTime anfang, LocalTime ende, String benutzer,int arbeitsPlatzId) {
+
+    public Buchung(LocalDate localDate, LocalTime anfang, LocalTime ende, Benutzer benutzer,int arbeitsPlatzId) {
         this.localDate = localDate;
         this.anfang = anfang;
         this.ende = ende;
         this.benutzer = benutzer;
         this.arbeitsplatzid = arbeitsPlatzId;
+        this.id = UUID.randomUUID();
     }
 
-
+    public Buchung(LocalDate localDate, LocalTime anfang, LocalTime ende, Benutzer benutzer, Integer arbeitsplatzid, UUID id) {
+        this.id = id;
+        this.localDate = localDate;
+        this.anfang = anfang;
+        this.ende = ende;
+        this.benutzer = benutzer;
+        this.arbeitsplatzid = arbeitsplatzid;
+    }
 
     public LocalDate getLocalDate() {
         return localDate;
@@ -41,8 +50,12 @@ public class Buchung {
     }
 
 
-    public String getBenutzer() {
+    public Benutzer getBenutzer() {
         return benutzer;
+    }
+
+    public UUID getID(){
+        return id;
     }
 
 

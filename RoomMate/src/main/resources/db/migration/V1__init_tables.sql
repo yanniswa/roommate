@@ -6,16 +6,24 @@ create table arbeitsplatz (
 create table room(
     arbeitsplatz integer,
     roomnumber integer,
-    foreign key (arbeitsplatz) references arbeitsplatz(id)
+    foreign key (arbeitsplatz) references arbeitsplatz(id),
+    id UUID
 );
 
-
 create table buchung(
-    local_date date,
-    anfang time,
-    ende time,
-    benutzer varchar(50),
-    arbeitsplatz integer references arbeitsplatz(id),
-    arbeitsplatz_key integer
+                        id UUID primary key,
+                        local_date date,
+                        anfang time,
+                        ende time,
+                        arbeitsplatz integer references arbeitsplatz(id),
+                        arbeitsplatz_key integer
 
+
+);
+
+create table benutzer(
+    buchung UUID,
+    benutzername varchar(50),
+    id UUID,
+    foreign key (buchung) references buchung(id)
 );

@@ -6,6 +6,7 @@ import org.springframework.data.annotation.Transient;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Objects;
+import java.util.UUID;
 
-public record Buchung(LocalDate localDate, LocalTime anfang, LocalTime ende, String  benutzer, Integer arbeitsplatz) {
+public record Buchung(@Id UUID Id, LocalDate localDate, LocalTime anfang, LocalTime ende, Benutzer benutzer, Integer arbeitsplatz) {
 }

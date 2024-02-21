@@ -23,8 +23,6 @@ import java.util.*;
     public int getRaumnummer(){
         return room.getRoomnumber();
     }
-
-    @PersistenceCreator
     public Arbeitsplatz(Set<String> ausstattung,int Id,Room room) {
         this.Id =Id;
         this.ausstattung = ausstattung;
@@ -85,7 +83,7 @@ import java.util.*;
         } else if (LocalTime.now().isAfter(anfang)&& datum.isEqual(LocalDate.now())) {
             return false;
         }
-        buchungen.add(new Buchung(datum,anfang,ende,benutzer,this.Id));
+        buchungen.add(new Buchung(datum,anfang,ende,new Benutzer(benutzer),this.Id));
         return true;
     }
     public boolean addBuchung(Buchung buchung){
@@ -173,5 +171,9 @@ import java.util.*;
     @Override
     public int hashCode() {
         return Objects.hash(Id);
+    }
+
+    public UUID getRaumID(){
+        return room.getId();
     }
 }

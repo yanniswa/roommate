@@ -1,4 +1,6 @@
 package RoomMate.database;
 
-public record Room(int roomnumber) {
+import java.util.UUID;
+
+public record Room(int roomnumber, UUID id) {
 }
