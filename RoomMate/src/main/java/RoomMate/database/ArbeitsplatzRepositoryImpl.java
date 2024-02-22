@@ -30,7 +30,6 @@ public class ArbeitsplatzRepositoryImpl implements RoomMate.service.Arbeitsplatz
     }
     private RoomMate.domain.model.Benutzer convertBenutzer(Benutzer benutzer){
         RoomMate.domain.model.Benutzer benutzer1 = new RoomMate.domain.model.Benutzer(benutzer.benutzername());
-        benutzer1.setId(benutzer.id());
         return benutzer1;
     }
     @Override
@@ -47,15 +46,15 @@ public class ArbeitsplatzRepositoryImpl implements RoomMate.service.Arbeitsplatz
         return new Buchung(buchung.getID(),buchung.getLocalDate(),buchung.getAnfang(),buchung.getEnde(),extractBenutzer((buchung.getBenutzer())), buchung.getArbeitsplatzid());
     }
     private Room extractRoom(RoomMate.domain.model.Room room){
-        return new Room(room.getRoomnumber(),room.getId());
+        return new Room(room.getRoomnumber());
     }
 
-    private Benutzer extractBenutzer (RoomMate.domain.model.Benutzer benutzer){return new Benutzer(benutzer.getBenutzername(),benutzer.getId());}
+    private Benutzer extractBenutzer (RoomMate.domain.model.Benutzer benutzer){return new Benutzer(benutzer.getBenutzername());}
 
     @Override
     public RoomMate.domain.model.Arbeitsplatz save(RoomMate.domain.model.Arbeitsplatz arbeitsplatz) {
         List<Buchung> buchungen = arbeitsplatz.getBuchungen().stream().map(this::extractBuchung).toList();
-        Room room = new Room(arbeitsplatz.getRaumnummer(),arbeitsplatz.getRaumID());
+        Room room = new Room(arbeitsplatz.getRaumnummer());
         Arbeitsplatz arbeitsplatzDTO = new Arbeitsplatz(arbeitsplatz.getId(), buchungen, room, arbeitsplatz.getAusstattung().stream().collect(Collectors.toSet()));
         Arbeitsplatz save = repository.save(arbeitsplatzDTO);
         return convertArbeitsplatz(save);

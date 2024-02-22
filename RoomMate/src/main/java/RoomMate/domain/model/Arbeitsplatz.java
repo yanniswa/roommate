@@ -173,7 +173,5 @@ import java.util.*;
         return Objects.hash(Id);
     }
 
-    public UUID getRaumID(){
-        return room.getId();
-    }
+
 }

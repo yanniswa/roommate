@@ -6,8 +6,7 @@ create table arbeitsplatz (
 create table room(
     arbeitsplatz integer,
     roomnumber integer,
-    foreign key (arbeitsplatz) references arbeitsplatz(id),
-    id UUID
+    foreign key (arbeitsplatz) references arbeitsplatz(id)
 );
 
 create table buchung(
@@ -24,6 +23,5 @@ create table buchung(
 create table benutzer(
     buchung UUID,
     benutzername varchar(50),
-    id UUID,
     foreign key (buchung) references buchung(id)
 );
