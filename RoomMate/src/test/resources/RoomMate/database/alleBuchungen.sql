@@ -28,8 +28,8 @@ INSERT INTO room (arbeitsplatz, roomnumber) VALUES ((select id from arbeitsplatz
 INSERT INTO room (arbeitsplatz, roomnumber) VALUES ((select id from arbeitsplatz where ausstattung like '%Monitor%'), 101);
 INSERT INTO room (arbeitsplatz, roomnumber) VALUES ((select id from arbeitsplatz where ausstattung like '%Schreibtisch%'), 101);
 
-insert into benutzer (buchung, benutzername,id) values((select id from buchung where local_date='2024-02-19'),'Elon',null);
-insert into benutzer (buchung, benutzername,id) values((select id from buchung where local_date='2024-02-20'),'Elon',null);
-insert into benutzer (buchung, benutzername,id) values((select id from buchung where local_date='2024-02-21'),'Elon',null);
-insert into benutzer (buchung, benutzername,id) values((select id from buchung where local_date='2024-02-22'),'Elon',null);
-insert into benutzer (buchung, benutzername,id) values((select id from buchung where local_date='2024-02-23'),'Elon',null);
+insert into benutzer (buchung, benutzername) values((select id from buchung where local_date='2024-02-19'),'Elon');
+insert into benutzer (buchung, benutzername) values((select id from buchung where local_date='2024-02-20'),'Elon');
+insert into benutzer (buchung, benutzername) values((select id from buchung where local_date='2024-02-21'),'Elon');
+insert into benutzer (buchung, benutzername) values((select id from buchung where local_date='2024-02-22'),'Elon');
+insert into benutzer (buchung, benutzername) values((select id from buchung where local_date='2024-02-23'),'Elon');

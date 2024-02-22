@@ -3,6 +3,7 @@ package RoomMate.web;
 
 import RoomMate.domain.model.Arbeitsplatz;
 import RoomMate.domain.model.Zeitslot;
+import RoomMate.service.AdminService;
 import RoomMate.service.BuchungsService;
 import RoomMate.Helper.WithMockOAuth2User;
 import org.junit.jupiter.api.DisplayName;
@@ -24,7 +25,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-@WebMvcTest
+@WebMvcTest(UserWebController.class)
 public class UserWebControllerTests {
 
     @Autowired
@@ -32,9 +33,11 @@ public class UserWebControllerTests {
 
     @MockBean
     BuchungsService buchungsService;
+    @MockBean
+    AdminService adminService;
 
     @Test
-    @DisplayName("Get Request auf /key funktioniert")
+    @DisplayName("Get Request auf /user funktioniert")
     @WithMockOAuth2User()
     void test_01() throws Exception{
         mvc.perform(get("/user"))
@@ -46,7 +49,7 @@ public class UserWebControllerTests {
     @WithMockOAuth2User()
     void test_02() throws Exception {
         mvc.perform(get("/user"))
-                .andExpect(view().name("key"));
+                .andExpect(view().name("user"));
     }
 
     @Test

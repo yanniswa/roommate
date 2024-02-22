@@ -3,6 +3,7 @@ package RoomMate.database.api;
 import RoomMate.database.api.KeymasterSchluessel;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 @Repository
 public class KeymasterSchluesselRepository implements RoomMate.service.api.KeymasterSchluesselRepository {
@@ -28,6 +29,11 @@ public class KeymasterSchluesselRepository implements RoomMate.service.api.Keyma
         return convertSchluessel(repository.findByOwner(name));
     }
 
+    @Override
+    public List<RoomMate.domain.model.api.KeymasterSchluessel> findAll() {
+        return convertList(repository.findAll());
+    }
+
     private RoomMate.domain.model.api.KeymasterSchluessel convertSchluessel(KeymasterSchluessel schluessel){
         return new RoomMate.domain.model.api.KeymasterSchluessel(schluessel.id(),schluessel.uuid(),schluessel.owner());
     }
@@ -36,6 +42,9 @@ public class KeymasterSchluesselRepository implements RoomMate.service.api.Keyma
             return Optional.empty();
         }
         return Optional.of(new RoomMate.domain.model.api.KeymasterSchluessel(schluessel.get().id(),schluessel.get().uuid(),schluessel.get().owner()));
+    }
+    private List<RoomMate.domain.model.api.KeymasterSchluessel> convertList(List<KeymasterSchluessel> schluessel){
+        return schluessel.stream().map(this::convertSchluessel).toList();
     }
     private KeymasterSchluessel extractSchluessel(RoomMate.domain.model.api.KeymasterSchluessel schluessel){
         return new KeymasterSchluessel(schluessel.id(), schluessel.uuid(), schluessel.owner());

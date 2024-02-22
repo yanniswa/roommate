@@ -14,8 +14,8 @@ public class OnionArchitektur {
                 .domainModels("RoomMate.domain..")
                 .domainServices("RoomMate.service..")
                 .applicationServices("RoomMate.service..")
-                .adapter("web", "RoomMate.web")
-                .adapter("persistence", "RoomMate.database");
+                .adapter("web", "RoomMate.web..")
+                .adapter("persistence", "RoomMate.database..");
 
 
     }

@@ -2,9 +2,12 @@ package RoomMate.web;
 
 import RoomMate.Helper.WithMockOAuth2User;
 import RoomMate.config.MethodSecurityConfiguration;
+import RoomMate.service.AdminService;
 import RoomMate.service.BuchungsService;
+import RoomMate.service.api.EventService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -16,7 +19,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
-@WebMvcTest
+@WebMvcTest()
 @Import(MethodSecurityConfiguration.class)
 class SecurityConfigTest {
 
@@ -25,6 +28,10 @@ class SecurityConfigTest {
 
     @MockBean
     BuchungsService buchungsService;
+    @MockBean
+    AdminService adminService;
+    @MockBean
+    EventService eventService;
 
 
 

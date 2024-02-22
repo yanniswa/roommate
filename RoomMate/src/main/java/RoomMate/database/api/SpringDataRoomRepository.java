@@ -2,6 +2,7 @@ package RoomMate.database.api;
 
 import org.springframework.data.repository.CrudRepository;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface SpringDataRoomRepository extends CrudRepository<KeymasterRaum,Integer> {
@@ -9,5 +10,7 @@ public interface SpringDataRoomRepository extends CrudRepository<KeymasterRaum,I
     Optional<KeymasterRaum> findByUuid(String id);
 
     Optional<KeymasterRaum>findByRoom(String room);
+
+    List<KeymasterRaum> findAll();
 
 }

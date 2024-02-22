@@ -2,6 +2,7 @@ package RoomMate.service.api;
 
 import RoomMate.domain.model.api.KeymasterRaum;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -12,4 +13,5 @@ public interface KeymasterRaumRepository {
     Optional<KeymasterRaum> findByuuid(String id);
 
     Optional<KeymasterRaum> findByRoom(String raum);
+    List<KeymasterRaum> findAll();
 }

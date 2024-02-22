@@ -1,69 +1,53 @@
 package RoomMate.web;
 
-import RoomMate.domain.model.Arbeitsplatz;
+import RoomMate.domain.model.Benutzer;
 import RoomMate.domain.model.Buchung;
+import RoomMate.domain.model.api.KeymasterRaum;
+import RoomMate.domain.model.api.KeymasterSchluessel;
 import RoomMate.service.BuchungsService;
-import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.http.HttpMethod;
+import RoomMate.service.api.EventService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @RestController
 public class EventController {
-    public EventController(BuchungsService buchungsService) {
+    public EventController(BuchungsService buchungsService, EventService eventService) {
         this.buchungsService = buchungsService;
+        this.eventService = eventService;
     }
 
     private static record Key(String id, String owner){}
     private static record Room(String id, String raum){}
     private BuchungsService buchungsService;
+    private EventService eventService;
 
-
+//Es wird die Annahme getroffen, dass die Raumbezeichnung in RoomMate nur die Raumnummer als int ist
+//Der Schlüssel besteht aus dem benutzername aus GitHub
     @GetMapping("/api/access")
     public List<Access> apiAcces(){
-        System.out.println("zugriff erhalten");
+        System.out.println("Zugriff erhalten");
+        List<KeymasterRaum> raume = eventService.alleKeymasterRaume();
+        List<KeymasterSchluessel> schluessel = eventService.alleKeymasterSchluessel();
         List<Buchung> buchungen = buchungsService.alleBuchungen();
-        RestTemplate restTemplate = new RestTemplate();
-        List<Key> keys = new ArrayList<>(restTemplate.exchange(
-                "http://localhost:3000/key",
-                HttpMethod.GET,
-                null,
-                new ParameterizedTypeReference<List<Key>>() {
-                }).getBody());
-        List<Room> rooms = new ArrayList<>(restTemplate.exchange(
-                "http://localhost:3000/room",
-                HttpMethod.GET,
-                null,
-                new ParameterizedTypeReference<List<Room>>() {
-                }).getBody());
-        List<Access> result = new ArrayList<>();
-        for(Buchung buchung : buchungen){
-            Optional<Key> key = keys.stream().filter(e -> e.owner.equals(buchung.getBenutzer())).findFirst();
-            if(key.isEmpty()){}
-            else{
-                int arbeitsplatzid = buchung.getArbeitsplatzid();
-                Arbeitsplatz arbeitsplatz = buchungsService.getArbeitsplatz(arbeitsplatzid);
-                System.out.println(arbeitsplatzid);
-                Stream<Room> stream = rooms.stream().filter(e -> Integer.parseInt(e.raum)==arbeitsplatz.getRaumnummer());
-                List<Room> list = stream.toList();
-                System.out.println(list);
-                Room room = list.getFirst();
-                result.add(new Access(key.get().id(), room.id()));
+        List<Access> access = new ArrayList<>();
+        System.out.println("5".equals(String.valueOf(5)));
+        for (Buchung buchung : buchungen){
+            String benutzer = buchung.getBenutzer().getBenutzername();
+            int arbeitsplatzid = buchung.getArbeitsplatzid();
+            int raumnummer = buchungsService.getArbeitsplatz(arbeitsplatzid).getRaumnummer();
+            Optional<KeymasterSchluessel> optionalKeymasterSchluessel = schluessel.stream().filter(e -> e.owner().equals(benutzer)).findFirst();
+            Optional<KeymasterRaum> optionalKeymasterRaum = raume.stream().filter(e -> e.room().equals(String.valueOf(raumnummer))).findFirst();
+            if(optionalKeymasterRaum.isPresent()&&optionalKeymasterRaum.isPresent()){
+                access.add(new Access(optionalKeymasterSchluessel.get().uuid(),optionalKeymasterRaum.get().uuid()));
             }
 
         }
-        System.out.println(result.stream().collect(Collectors.toSet()));
-        Set<Access> collect = result.stream().collect(Collectors.toSet());
-        return collect.stream().toList();
+        System.out.println(access);
+        return access;
     }
-//Der neue Schlüssel hat die ID: 5b53a9b5-f95e-45a9-947d-94a50b99eefb
-//Der neue Raum hat die ID: 86e7a9f7-3700-4893-b8be-1fed9a27d85d
+
 }
