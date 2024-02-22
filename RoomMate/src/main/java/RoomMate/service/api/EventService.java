@@ -34,7 +34,6 @@ public class EventService {
     public void updateData(){
         System.out.println("updating");
 
-        RestTemplate restTemplate = new RestTemplate();
         List<Key> keys = fetchSchluessel();
         List<Room> rooms = fetchRaum();
 

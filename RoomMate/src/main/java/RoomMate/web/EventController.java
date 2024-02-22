@@ -41,7 +41,7 @@ public class EventController {
             int raumnummer = buchungsService.getArbeitsplatz(arbeitsplatzid).getRaumnummer();
             Optional<KeymasterSchluessel> optionalKeymasterSchluessel = schluessel.stream().filter(e -> e.owner().equals(benutzer)).findFirst();
             Optional<KeymasterRaum> optionalKeymasterRaum = raume.stream().filter(e -> e.room().equals(String.valueOf(raumnummer))).findFirst();
-            if(optionalKeymasterRaum.isPresent()&&optionalKeymasterRaum.isPresent()){
+            if(optionalKeymasterRaum.isPresent()&&optionalKeymasterSchluessel.isPresent()){
                 access.add(new Access(optionalKeymasterSchluessel.get().uuid(),optionalKeymasterRaum.get().uuid()));
             }
 
