@@ -87,7 +87,7 @@
                     <td th:text="${buchung.getArbeitsplatzid()}"></td>
                     <td>
                         <ul>
-                            <li th:text="${buchung.getBenutzer()}"></li>
+                            <li th:text="${buchung.getBenutzer().getBenutzername()}"></li>
                         </ul>
                     </td>
                     <td th:text="${buchung.getLocalDate()}"></td>
