@@ -6,91 +6,106 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
-<body>
+<div class="container">
+    <h1>RoomMate Admin Panel</h1>
 
-<h1>RoomMate Admin Panel</h1>
+    <!-- Arbeitsplatz hinzufügen Formular -->
+    <div class="row">
+        <div class="col-md-6">
+            <h2>Arbeitsplatz hinzufügen</h2>
+            <form method="post">
+                <div class="form-group">
+                    <label for="raumnummer">Raumnummer:</label>
+                    <input type="number" class="form-control" id="raumnummer" name="raumnummer">
+                </div>
+                <div class="form-group">
+                    <label for="ausstattung1">Austattung1:</label>
+                    <input type="text" class="form-control" id="ausstattung1" name="ausstattung1">
+                </div>
+                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+                <button type="submit" class="btn btn-primary">Abschicken</button>
+            </form>
+        </div>
+    </div>
 
-<h2>Arbeitsplatz hinzufügen</h2>
-<form method="post">
-    <label for="raumnummer">Raumnummer:</label>
-    <input type="number" id="raumnummer" name="raumnummer"> <br>
-    <label for="ausstattung1">Austattung1:</label>
-    <input type="text" id="ausstattung1" name="ausstattung1"> <br>
-    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
-    <button type="submit">
-        Abschicken
-    </button>
-</form>
+    <!-- Arbeitsplatzübersicht -->
+    <div class="row mt-4">
+        <div class="col-md-3">
+            <h2>Arbeitsplatzübersicht</h2>
+            <table class="table table-hover table-bordered">
+                <!-- Tabellenkopf -->
+                <thead>
+                <tr>
+                    <th>ArbeitsplatzID</th>
+                    <th>Ausstattung</th>
+                    <th>Raumnummer</th>
+                    <th>Aktionen</th>
+                </tr>
+                </thead>
+                <!-- Tabelleninhalt -->
+                <tbody>
+                <!-- Loop durch die Raumobjekte im Modell -->
+                <tr th:each="arbeitsplatz : ${arbeitsplaetze}">
+                    <td th:text="${arbeitsplatz.getId()}"></td>
+                    <td>
+                        <ul>
+                            <li th:each="ausstattung : ${arbeitsplatz.getAusstattung()}" th:text="${ausstattung}"></li>
+                        </ul>
+                    </td>
+                    <td th:text="${arbeitsplatz.getRaumnummer()}"></td>
+                    <td>
+                        <button type="submit" class="btn btn-outline-primary">
+                            <a th:href="@{/admin/{arbeitsplatzId}(arbeitsplatzId=${arbeitsplatz.getId()})}">Ausstattung hinzufügen</a>
+                        </button>
+                        <button type="submit" class="btn btn-outline-danger">Arbeitsplatz löschen</button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 
-
-
-<h2>Arbeitsplatzübersicht</h2>
-<table class="table table-hover table-bordered">
-    <thead>
-    <tr>
-        <th>ArbeitsplatzID</th>
-        <th>Ausstattung</th>
-        <th>Raumnummer</th>
-        <th>Aktionen</th>
-    </tr>
-    </thead>
-    <tbody>
-    <!-- Loop durch die Raumobjekte im Modell -->
-    <tr th:each="arbeitsplatz : ${arbeitsplaetze}">
-        <td th:text="${arbeitsplatz.getId()}"></td>
-        <td>
-            <ul>
-                <li th:each="ausstattung : ${arbeitsplatz.getAusstattung()}" th:text="${ausstattung}"></li>
-            </ul>
-        </td>
-        <td th:text="${arbeitsplatz.getRaumnummer()}"></td>
-        <td>
-            <button type="submit">
-                <a th:href="@{/admin/{arbeitsplatzId}(arbeitsplatzId=${arbeitsplatz.getId()})}">Ausstattung hinzufügen</a>
-            </button>
-
-            <button type="submit">
-                Arbeitsplatz löschen
-            </button>
-        </td>
-    </tr>
-    </tbody>
-</table>
-<h2>Buchungsübersicht</h2>
-<table class="table table-hover table-bordered">
-    <thead>
-    <tr>
-        <th>ArbeitsplatzID</th>
-        <th>Benutzer</th>
-        <th>Datum</th>
-        <th>Uhrzeit</th>
-        <th></th>
-    </tr>
-    </thead>
-    <tbody>
-    <!-- Loop durch die Raumobjekte im Modell -->
-    <tr th:each="buchung : ${alleBuchungen}">
-        <td th:text="${buchung.getArbeitsplatzid()}"></td>
-        <td>
-            <ul>
-                <li th:text="${buchung.getBenutzer()}"></li>
-            </ul>
-        </td>
-        <td th:text="${buchung.getLocalDate()}"></td>
-        <td>
-            <span th:text="${buchung.getAnfang()}"></span>
-            <span> bis </span>
-            <span th:text="${buchung.getEnde()}"></span>
-        </td>
-
-        </td>
-        <td>
-            <button type="submit">
-                <a href="/admin">BuchungLöschen</a>
-            </button></td>
-    </tr>
-    </tbody>
-</table>
-
+    <!-- Buchungsübersicht -->
+    <div class="row mt-4">
+        <div class="col-md-6">
+            <h2>Buchungsübersicht</h2>
+            <table class="table table-hover table-bordered">
+                <!-- Tabellenkopf -->
+                <thead>
+                <tr>
+                    <th>ArbeitsplatzID</th>
+                    <th>Benutzer</th>
+                    <th>Datum</th>
+                    <th>Uhrzeit</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <!-- Tabelleninhalt -->
+                <tbody>
+                <!-- Loop durch die Raumobjekte im Modell -->
+                <tr th:each="buchung : ${alleBuchungen}">
+                    <td th:text="${buchung.getArbeitsplatzid()}"></td>
+                    <td>
+                        <ul>
+                            <li th:text="${buchung.getBenutzer()}"></li>
+                        </ul>
+                    </td>
+                    <td th:text="${buchung.getLocalDate()}"></td>
+                    <td>
+                        <span th:text="${buchung.getAnfang()}"></span>
+                        <span> bis </span>
+                        <span th:text="${buchung.getEnde()}"></span>
+                    </td>
+                    <td>
+                        <button type="submit" class="btn btn-outline-danger">
+                            <a href="/admin" class="text-danger">Buchung Löschen</a>
+                        </button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
 </body>
 </html>

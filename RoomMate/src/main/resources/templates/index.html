@@ -5,9 +5,48 @@
     <title>Startseite</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"></head>
+<style>
+    body {
+        background-color: #f8f9fa;
+    }
+    .container {
+        margin-top: 50px;
+    }
+    .header {
+        text-align: center;
+        margin-bottom: 50px;
+    }
+    .btn-primary {
+        background-color: #007bff;
+        border-color: #007bff;
+    }
+    .btn-primary:hover {
+        background-color: #0056b3;
+        border-color: #0056b3;
+    }
+    .btn-secondary {
+        background-color: #6c757d;
+        border-color: #6c757d;
+    }
+    .btn-secondary:hover {
+        background-color: #5a6268;
+        border-color: #5a6268;
+    }
+</style>
+</head>
 <body>
-  <a href="/user">Raumübersicht</a> <br>
-<a href="/admin">Admin Panel</a>
 
+<div class="container">
+    <div class="header">
+        <h1>Willkommen bei RoomMate</h1>
+        <p>Ihre Plattform für die bequeme Verwaltung und Buchung von Arbeitsplätzen und Räumen</p>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-md-6 text-center">
+            <a class="btn btn-lg btn-primary mb-3" href="/user" role="button">Raumübersicht</a><br>
+            <a class="btn btn-lg btn-secondary" href="/admin" role="button">Admin Panel</a>
+        </div>
+    </div>
+</div>
 </body>
 </html>

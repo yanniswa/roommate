@@ -6,17 +6,27 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"></head>
 <body>
+<div class="container">
     <h1>Filter</h1>
-    <form action="">
-        <label for="usbc">USBC-Anschluss</label>
-        <input type="checkbox" id="usbc" name="usbc"> <br>
-        <label for="wlan">WLAN</label>
-        <input type="checkbox" id="wlan" name="wlan"> <br>
-        <label for="Raumnummer">Raumnummer:</label>
-        <input type="number" id="Raumnummer" name="Raumnummer"> <br>
-        <input type="submit" value="Suchen">
+    <form action="" class="mb-4">
+        <div class="form-group">
+            <div class="custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input" id="usbc" name="usbc">
+                <label class="custom-control-label" for="usbc">USBC-Anschluss</label>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input" id="wlan" name="wlan">
+                <label class="custom-control-label" for="wlan">WLAN</label>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="Raumnummer">Raumnummer:</label>
+            <input type="number" class="form-control" id="Raumnummer" name="Raumnummer">
+        </div>
+        <button type="submit" class="btn btn-primary">Suchen</button>
     </form>
-    <br>
 
     <table class="table table-hover table-bordered">
         <thead>
@@ -38,12 +48,13 @@
             </td>
             <td th:text="${arbeitsplatz.getRaumnummer()}"></td>
             <td>
-                <button type="submit">
-                    <a th:href="@{/user/{arbeitsplatzId}(arbeitsplatzId=${arbeitsplatz.getId()})}">Buchen</a>
-                </button></td>
+                <form th:action="@{/user/{arbeitsplatzId}(arbeitsplatzId=${arbeitsplatz.getId()})}" method="get">
+                    <button type="submit" class="btn btn-success">Buchen</button>
+                </form>
+            </td>
         </tr>
         </tbody>
     </table>
-
+</div>
 </body>
 </html>

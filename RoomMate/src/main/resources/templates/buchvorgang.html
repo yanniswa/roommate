@@ -6,33 +6,39 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"></head>
 <body>
-<h1>Wann möchten Sie den Arbeitsplatz buchen?</h1>
-<form method="post" th:object="${form}">
-    <label for="datum">Datum:</label>
-    <input type="date" id="datum" name="datum" required>
-    <small class="text-danger" th:if="${#fields.hasErrors('datum')}" th:errors="*{datum}">Fehler!</small>
+<div class="container">
+    <h1>Wann möchten Sie den Arbeitsplatz buchen?</h1>
+    <form class="form" method="post" th:object="${form}">
+        <div class="form-group">
+            <label for="datum">Datum:</label>
+            <input type="date" class="form-control" id="datum" name="datum" required>
+            <small class="form-text text-danger" th:if="${#fields.hasErrors('datum')}" th:errors="*{datum}">Fehler!</small>
+        </div>
 
-    <label for="anfang">Von:</label>
-    <input type="time" id="anfang" name="anfang" required>
-    <small class="text-danger" th:if="${error != null}" th:text="${error}">Fehler!</small>
+        <div class="form-group">
+            <label for="anfang">Von:</label>
+            <input type="time" class="form-control" id="anfang" name="anfang" required>
+            <small class="form-text text-danger" th:if="${error != null}" th:text="${error}">Fehler!</small>
+        </div>
 
+        <div class="form-group">
+            <label for="ende">Bis:</label>
+            <input type="time" class="form-control" id="ende" name="ende" required>
+            <small class="alert alert-danger" th:if="${buchungsError != null}" th:text="${buchungsError}">Fehler!</small>
+        </div>
 
-    <label for="ende">Bis:</label>
-    <input type="time" id="ende" name="ende" required>
+        <input type="hidden" name="id" th:value="${platzId}">
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
 
-    <small class="text-danger" th:if="${buchungsError != null}" th:text="${buchungsError}">Fehler!</small>
+        <button type="submit" class="btn btn-primary">Buchen</button>
 
-    <input type="hidden" name="id" th:value="${platzId}">
-
-    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
-
-    <button type="submit">Buchen</button>
-
-    <h2 th:if="${freieSlots}">Freie Slots an dem Tag</h2>
-    <ol th:if="${freieSlots}">
-        <li th:each="slots : ${freieSlots}" th:text="${slots}">Freie Slots</li>
-    </ol>
-</form>
-
+        <h2 th:if="${freieSlots}">Freie Slots an dem Tag</h2>
+        <ul class="list-group" th:if="${freieSlots}">
+            <li class="list-group-item" th:each="slots : ${freieSlots}">
+                <span class="font-weight-bold">Zeitslot:</span> <span th:text="${slots.anfang + ' - ' + slots.ende}"></span>
+            </li>
+        </ul>
+    </form>
+</div>
 </body>
 </html>
