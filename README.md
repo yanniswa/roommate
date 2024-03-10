@@ -21,21 +21,21 @@ Betriebssystemen
 - User: nutzt RoomMate um einen Arbeitsplatz zu buchen
 - Admin: erstellt Arbeitsplätze und bearbeitet diese, kann Buchungen und Arbeitsplätze löschen
 
-Technologie Stack
-Java Version 21
-Gradle 8.5
-Spring Boot 3.1
-Docker
-PostgreSQL
-OAuthApp in Github für die Anmeldung mit Github
-Flyway für die Datenbankmigration
-Thymeleaf, CSS Bootstrap, HTML
+Technologie Stack  
+- Java Version 21  
+- Gradle 8.5  
+- Spring Boot 3.1  
+- Docker  
+- PostgreSQL  
+- OAuthApp in Github für die Anmeldung mit Github  
+- Flyway für die Datenbankmigration  
+- Thymeleaf, CSS Bootstrap, HTML  
 
 Ausführen des Projekts:
-- die docker-compose.yaml starten
--Umgebungsvariablen setzen:
-	-CLIENT_ID: 77bcc6136338178e1cad
-	-CLIENT_SECRET: f4e0f58ed4a5bc08d78b7f700dd69a6cfec239cb
-	-POSTGRES_PASSWORD: iamgroot
-	-POSTGRES_USER: roommate
+- die docker-compose.yaml starten  
+- Umgebungsvariablen setzen:    
+	-  CLIENT_ID: 77bcc6136338178e1cad  
+	-  CLIENT_SECRET: f4e0f58ed4a5bc08d78b7f700dd69a6cfec239cb  
+	-  POSTGRES_PASSWORD: iamgroot  
+	-  POSTGRES_USER: roommate  
 
